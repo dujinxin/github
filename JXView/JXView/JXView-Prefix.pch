@@ -1,0 +1,25 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+//使用arc,注释掉不使用arc
+#define __djx__has_feature(objc_arc)
+
+#define kProduction /* 生产环境 */
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#import "Header.h"
+#import "MacroDefinition.h"
+
+
+#endif
