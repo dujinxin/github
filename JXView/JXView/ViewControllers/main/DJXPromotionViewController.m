@@ -48,6 +48,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    
 }
 
 - (void)didReceiveMemoryWarning
