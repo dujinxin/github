@@ -15,9 +15,9 @@ NSMutableArray *allBsiConnections;
 @implementation DJXBasicRequest
 @synthesize tag = _tag;
 @synthesize delegate = _delegate;
-//@synthesize baseUrl = _baseUrl;
-@synthesize paramDict = _paramDict;
+@synthesize requestDictionary = _requestDictionary;
 @synthesize manager = _manager;
+@synthesize requestUrl = _requestUrl;
 
 #pragma mark - RequestMethods
 -(id)init{
@@ -126,9 +126,9 @@ NSMutableArray *allBsiConnections;
 - (void)requestFailedFilter {
     
 }
-- (NSString *)requestUrl {
-    return @"";
-}
+//- (NSString *)requestUrl {
+//    return @"";
+//}
 - (NSString *)cdnUrl {
     return @"";
 }
@@ -182,7 +182,6 @@ NSMutableArray *allBsiConnections;
 - (NSInteger)responseStatusCode {
     return self.requestOperation.response.statusCode;
 }
-
 - (NSDictionary *)responseHeaders {
     return self.requestOperation.response.allHeaderFields;
 }
@@ -207,6 +206,8 @@ NSMutableArray *allBsiConnections;
     DJXBasicRequest * basicRequest = [[class alloc]init ];
     if (basicRequest.requestMethod) {
         basicRequest.requestMethod = kRequestMethodPost;
+    }else{
+        basicRequest.requestMethod = kRequestMethodGet;
     }
     if (target) {
         basicRequest.delegate = target;
@@ -215,7 +216,7 @@ NSMutableArray *allBsiConnections;
         basicRequest.requestUrl = url;
     }
     if (param) {
-        basicRequest.paramDict = [NSMutableDictionary dictionaryWithDictionary:param];
+        basicRequest.requestDictionary = (NSMutableDictionary *) param;
     }
     if (tag) {
         basicRequest.tag = tag;
@@ -234,7 +235,7 @@ NSMutableArray *allBsiConnections;
         self.requestUrl = url;
     }
     if (param) {
-        self.paramDict = [NSMutableDictionary dictionaryWithDictionary: param];
+        self.requestDictionary = [NSMutableDictionary dictionaryWithDictionary: param];
     }
     if (tag) {
         self.tag = tag;
@@ -253,6 +254,10 @@ NSMutableArray *allBsiConnections;
 }
 
 - (BOOL)requestFailed:(id)responseData{
+    BOOL isJsonData = [NSJSONSerialization isValidJSONObject:responseData];
+    if (!isJsonData) {
+        NSLog(@"error with data is not json format")
+    }
     //    NSLog(@"failed----\n%@\n%@", request.baseUrl.description,request.paramDict);
     //    NSLog(@"failed----:%ld", (long)request.responseStatusCode);
     //    if(request.responseStatusCode == ASIRequestTimedOutErrorType)
@@ -263,15 +268,7 @@ NSMutableArray *allBsiConnections;
     return YES;
 }
 
--(BOOL) requestSuccess:(id)responseData{
-    
-    //    if([request didUseCachedResponse]){
-    //        NSLog(@"=========资源请求：%@ 来自缓存============",[request url]);
-    //    }else{
-    //        NSLog(@"=========资源请求：%@ 不来自缓存============",[request url]);
-    //    }
-    //    NSLog(@"postValue:%@", [[[NSString alloc] initWithData:request.postBody encoding:    NSUTF8StringEncoding] autorelease]);
-    
+- (BOOL)requestSuccess:(id)responseData{
     return YES;
 }
 - (void)clearCompletionBlock {
@@ -280,4 +277,23 @@ NSMutableArray *allBsiConnections;
     self.failure = nil;
 }
 
+#pragma mark -- description
+- (NSString *)description {
+    id requestParam;
+    if (self.requestDictionary) {
+        requestParam = self.requestDictionary;
+    }else{
+        requestParam = @"null";
+    }
+    return [NSString stringWithFormat:@"<%@: %p>\n properties:%@", NSStringFromClass([self class]), self,@{@"requestMethod":@(self.requestMethod),@"apiTag":@(self.tag),@"delegate":self.delegate,@"requestUrl":self.requestUrl,@"requestDictionary":requestParam}];
+}
+- (NSString *)debugDescription{
+    id requestParam;
+    if (self.requestDictionary) {
+        requestParam = self.requestDictionary;
+    }else{
+        requestParam = @"null";
+    }
+    return [NSString stringWithFormat:@"<%@: %p>\n properties:%@", NSStringFromClass([self class]), self,@{@"requestMethod":@(self.requestMethod),@"apiTag":@(self.tag),@"delegate":self.delegate,@"requestUrl":self.requestUrl,@"requestDictionary":requestParam}];
+}
 @end

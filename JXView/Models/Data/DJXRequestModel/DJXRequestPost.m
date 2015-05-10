@@ -145,15 +145,58 @@
 @implementation GoodListObj
 
 -(NSString *)requestUrl{
-    //    return [NSString stringWithFormat:@"%@%@",kBaseUrl,kGoodsList];
     return [NSString stringWithFormat:@"%@%@?session_id=&region_id=1001",kBaseUrl,kGoodsList];
 }
 -(DJXRequestMethod)requestMethod{
     return kRequestMethodPost;
 }
+- (NSInteger)cacheTimeInSeconds {
+    return 60 * 1;
+}
 -(NSSet *)acceptableContentTypes{
     return [NSSet setWithObject:@"text/html"];
 }
+
+-(BOOL)isUseFormat{
+    return YES;
+}
+-(void)responseResult:(id)object message:(NSString *)message isSuccess:(BOOL)isSuccess{
+    if (isSuccess) {
+        /* 将数据传给界面 */
+        //代理方法
+        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(responseSuccess:tag:)]) {
+            [self.delegate responseSuccess:object tag:self.tag];
+        }
+//        //block
+//        if (self.success) {
+//            self.success(object);
+//        }
+//        //target-action
+//        if ([self.delegate respondsToSelector:self.action] && self.action){
+//            SuppressPerformSelectorLeakWarning(
+//                                               [self.delegate performSelector:self.action withObject:object];
+//                                               );
+//        }
+    }else{
+        /* 将数据传给界面 */
+        //代理方法
+        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(responseFailed:withMessage:)]) {
+            [self.delegate responseFailed:self.tag withMessage:message];
+        }
+//        //block
+//        if (self.failure) {
+//            self.failure(message);
+//        }
+//        //target-action
+//        if ([self.delegate respondsToSelector:self.action] && self.action){
+//            SuppressPerformSelectorLeakWarning(
+//                                               [self.delegate performSelector:self.action withObject:message];
+//                                               );
+//        }
+    }
+}
+
+
 - (BOOL)requestFailed:(id)responseData
 {
     if(![super requestFailed:responseData]){
@@ -164,7 +207,6 @@
     [[DJXRequestManager sharedInstance] cancelRequest:self];
     return YES;
 }
-
 -(BOOL)requestSuccess:(id)responseData{
     if(![super requestSuccess:responseData]){
         return NO;
@@ -195,52 +237,26 @@
             NSLog(@"status 10000 %@",[dict objectForKey:@"message"]);
         }
         /* 将数据传给界面 */
-//        //代理方法
-//        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(responseSuccessObj:tag:)]) {
-//            [self.delegate responseSuccessObj:goodsList tag:self.tag];
-//        }
-//        //block
-//        if (self.success) {
-//            self.success(goodsList);
-//        }
+        //        //代理方法
+        //        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(responseSuccessObj:tag:)]) {
+        //            [self.delegate responseSuccessObj:goodsList tag:self.tag];
+        //        }
+        //        //block
+        //        if (self.success) {
+        //            self.success(goodsList);
+        //        }
         //target-action
         if ([self.delegate respondsToSelector:self.action] && self.action){
             SuppressPerformSelectorLeakWarning(
-                [self.delegate performSelector:self.action withObject:goodsList];
-            );
+                                               [self.delegate performSelector:self.action withObject:goodsList];
+                                               );
         }
         
     }
     
     
-    [[DJXRequestManager sharedInstance]cancelRequest:self];
+    [[DJXRequestManager sharedInstance] cancelRequest:self];
     return YES;
 }
-
-- (void)globalPostWithUrl:(NSString *)url tag:(NSInteger)tag delegate:(id)target action:(SEL)action success:(requestCompletionBlock)success failure:(requestCompletionBlock)failure{
-    
-    //    self.delegate = target;
-    //    self.success = block;
-    //    [self.manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    //        //成功
-    //         [self responseSuccess:operation.responseData];
-    //
-    //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    //        //失败
-    //        NSLog(@"error:%@",error.localizedDescription);
-    //    }];
-}
-//- (void)requestWithMentod:(DJXRequestMethod)requestMethod WithUrl:(NSString *)url param:(NSDictionary *)param tag:(NSInteger)tag delegate:(id)target{
-//    self.delegate = target;
-//    self.success = block;
-//    [self.manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        //成功
-//        [self requestSuccess:operation.responseData];
-//
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        //失败
-//        NSLog(@"error:%@",error.localizedDescription);
-//    }];
-//}
 @end
 

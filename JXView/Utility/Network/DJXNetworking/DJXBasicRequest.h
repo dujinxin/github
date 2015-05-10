@@ -42,11 +42,12 @@ _Pragma("clang diagnostic pop") \
 
 -(void)requestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
 -(void)requestCancel:(int)tag;
--(void)responseSuccess:(NSMutableArray *)arrData tag:(int)tag;
--(void)responseSuccessObj:(id)responseObj tag:(int)tag;
+//-(void)responseSuccess:(NSMutableArray *)arrData tag:(int)tag;
+-(void)responseSuccess:(id)responseObj tag:(int)tag;
 -(void)responseSuccess:(id)request;
--(BOOL)requestSuccess:(id)request;
--(BOOL)requestFailed:(DJXBasicRequest *)request;
+-(void)responseFailed:(id)request;
+-(void)responseFailed:(int)tag withMessage:(NSString*)errMsg;
+-(void)responseFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
 -(void)setProgress:(float)newProgress;
 
 -(void)clearRequest;
@@ -65,7 +66,7 @@ typedef void (^requestCompletionBlock)(id object);
 //请求url
 @property (nonatomic, copy) NSString * requestUrl;
 //请求参数
-@property (nonatomic, strong) NSMutableDictionary *paramDict;
+@property (nonatomic, strong) NSMutableDictionary *requestDictionary;
 //需要登录时，用户的信息
 @property (nonatomic, strong) NSDictionary *userInfo;
 //请求类型
@@ -78,12 +79,11 @@ typedef void (^requestCompletionBlock)(id object);
 @property (nonatomic, assign) id<DJXRequestDelegate> delegate;
 @property (nonatomic, assign) SEL action;
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
-//@property (nonatomic, strong) NSMutableDictionary *requestDictionary;
 //返回头信息
 @property (nonatomic, strong, readonly) NSDictionary *responseHeaders;
 //返回的数据
 @property (nonatomic, strong, readonly) NSString *responseString;
-@property (nonatomic, strong) NSData * responseData;
+@property (nonatomic, strong)           NSData * responseData;
 @property (nonatomic, strong, readonly) id responseJSONObject;
 //返回状态码
 @property (nonatomic, assign, readonly) NSInteger responseStatusCode;
@@ -102,6 +102,7 @@ typedef void (^requestCompletionBlock)(id object);
 + (void)requestWithClass:(NSString *)className delegate:(id)target urlString:(NSString *)url kApiTag:(DJXApiTag)tag;
 + (void)requestWithClass:(NSString *)className delegate:(id)target urlString:(NSString *)url param:(NSDictionary *)param kApiTag:(DJXApiTag)tag;
 - (void)requestWithDelegate:(id)target urlString:(NSString *)url kApiTag:(DJXApiTag)tag;
+
 - (BOOL)requestSuccess:(id)responseData;
 - (BOOL)requestFailed:(id)responseData;
 // append self to request queue

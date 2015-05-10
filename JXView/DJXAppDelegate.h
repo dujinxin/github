@@ -11,8 +11,12 @@
 #import "AGViewDelegate.h"
 #import "DDMenuController.h"
 
+
+//微信官方
+#import "WXApi.h"
+
 @class DJXAppDelegate;
-@interface DJXAppDelegate : UIResponder <UIApplicationDelegate,LeveyTabBarControllerDelegate,DDMenuControllerDelegate>
+@interface DJXAppDelegate : UIResponder <UIApplicationDelegate,LeveyTabBarControllerDelegate,DDMenuControllerDelegate,WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) DDMenuController *menuController;

@@ -10,33 +10,6 @@
 
 @implementation AppModel
 
-- (void)dealloc{
-    [_applicationId release];
-    [_categoryId release];
-    [_categoryName release];
-    [_currentPrice release];
-    [__description release];
-    [_downloads release];
-    [_expireDatetime release];
-    [_favorites release];
-    [_fileSize release];
-    [_iconUrl release];
-    [_ipa release];
-    [_itunesUrl release];
-    [_lastPrice release];
-    [_name release];
-    [_priceTrend release];
-    [_ratingOverall release];
-    [_releaseDate release];
-    [_releaseNotes release];
-    [_shares release];
-    [_slug release];
-    [_starCurrent release];
-    [_starOverall release];
-    [_updateDate release];
-    [_version release];
-    [super dealloc];
-}
 
 //变量名称与key值不一致，为了防止程序崩溃，需要在数据模型中，重写setValue: forUndefinedKey:方法
 //key:为与属性名称不一致的key值
@@ -69,7 +42,7 @@
     }
     NSData * myResponseData = [request responseData];
 	NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingUTF8);//kCFStringEncodingUTF8
-	NSString * myResponseStr = [[[NSString alloc] initWithData:myResponseData encoding:enc] autorelease];
+	NSString * myResponseStr = [[NSString alloc] initWithData:myResponseData encoding:enc];
     
     //    NSLog(@"jsonre fren %@",myResponseStr);
     

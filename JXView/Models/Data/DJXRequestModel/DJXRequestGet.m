@@ -49,10 +49,12 @@
 @implementation ApplicationObj
 
 
-- (NSString *)requestUrl{
-    return kTestUrl;
+-(NSInteger)cacheTimeInSeconds{
+    return 60;
 }
-
+-(BOOL)useCache{
+    return YES;
+}
 - (BOOL)requestFailed:(id)responseData
 {
     if(![super requestFailed:responseData]){

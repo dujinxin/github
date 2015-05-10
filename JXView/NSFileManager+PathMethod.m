@@ -33,4 +33,32 @@
         return NO;
 }
 
+
+-(void)cleanCacheFolder{
+    NSError * error = nil;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:self.folderPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:self.folderPath error:&error];
+    }
+}
+-(void)cleanCacheFile{
+    NSError * error = nil;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:self.filePath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:self.filePath error:&error];
+    }
+}
+
+-(void)cleanCacheFolderWithPath:(NSString *)path{
+    NSError * error = nil;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+    }
+}
+-(void)cleanCacheFileWithPath:(NSString *)path{
+    NSError * error = nil;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+    }
+}
+
+
 @end

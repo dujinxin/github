@@ -42,6 +42,35 @@
 }
 */
 
+
+/*
+ *custom NavigationBar
+ */
+-(UIView *)setNavigationBar:(NSString *)title backgroundColor:(UIColor *)backgroundColor leftItem:(UIView *)leftItem rightItem:(UIView *)rightItem delegete:(id)delegate{
+    UIView * navigationBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    navigationBar.backgroundColor = backgroundColor;
+    
+    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 200, 44)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.text = title;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [navigationBar addSubview:titleLabel];
+    //titleLabel.center = CGPointMake(SCREEN_WIDTH /2, titleLabel.center.y);
+    
+    leftItem.frame = CGRectMake(10, 20, 44, 44);
+    rightItem.frame = CGRectMake(SCREEN_WIDTH - 50, 20, 44, 44);
+    if ([leftItem isKindOfClass:[UIButton class]]) {
+        UIButton * btn = (UIButton *)leftItem;
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    if ([rightItem isKindOfClass:[UIButton class]]) {
+        UIButton * btn = (UIButton *)rightItem;
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    [navigationBar addSubview:leftItem];
+    [navigationBar addSubview:rightItem];
+    return navigationBar;
+}
 /*
  *title/titleView
  */
@@ -92,6 +121,7 @@
     UIButton *superBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     superBtn.frame = CGRectMake(0, 0, 30, 30);
 //    superBtn.backgroundColor = [UIColor purpleColor];
+    [superBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [superBtn addTarget:delegate action:selector forControlEvents:UIControlEventTouchUpInside];
     
     if (style) {

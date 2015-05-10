@@ -7,6 +7,8 @@
 //
 
 #import "DJXMyViewController.h"
+#import "DJXLoginViewController.h"
+#import "DJXSettingViewController.h"
 
 #import "DJXShakeViewController.h"
 #import "DJXScanViewController.h"
@@ -16,6 +18,7 @@
 #import "DJXShareManager.h"
 
 #import "DJXAnimationViewController.h"
+#import "DJXMyOrderListViewController.h"
 
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -45,6 +48,10 @@
 //    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
 //    [self.navigationController.navigationBar setTranslucent:NO];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    
+    self.navigationItem.leftBarButtonItems =  [self getNavigationItems:self selector:@selector(login) title:@"登陆" style:kDefault isLeft:YES];
+    self.navigationItem.rightBarButtonItems =  [self getNavigationItems:self selector:@selector(setting) title:@"设置" style:kDefault isLeft:NO];
+    
     [_dataArray addObject:@"摇一摇"];
     [_dataArray addObject:@"扫一扫"];
     [_dataArray addObject:@"JXAlertView自定义视图"];
@@ -52,16 +59,30 @@
     [_dataArray addObject:@"分享"];
     [_dataArray addObject:@"音量"];
     [_dataArray addObject:@"动画"];
+    [_dataArray addObject:@"我的订单"];
     self.navigationItem.title = @"我的";
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0,SCREEN_WIDTH,SCREEN_HEIGHT-64) style:UITableViewStylePlain];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[DJXAppDelegate appDelegate].mytabBarController hidesTabBar:NO animated:YES];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma mark - ClickMethod
+- (void)login{
+    DJXLoginViewController * svc = [[DJXLoginViewController alloc]init ];
+    [self presentViewController:svc animated:YES completion:^{
+        
+    }];
+}
+- (void)setting{
+    DJXSettingViewController * svc = [[DJXSettingViewController alloc]init ];
+    [self.navigationController pushViewController:svc animated:YES];
+}
 
 #pragma mark - table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -87,9 +108,14 @@
     switch (indexPath.row) {
         case 0:
         {
-            DJXShakeViewController * shakeVC = [[DJXShakeViewController alloc]init ];
-            shakeVC.view.backgroundColor = [UIColor redColor];
-            [self.navigationController pushViewController:shakeVC animated:YES];
+            if ([[UserInfo shareManager]isHadLogin]) {
+                DJXShakeViewController * shakeVC = [[DJXShakeViewController alloc]init ];
+                shakeVC.view.backgroundColor = [UIColor whiteColor];
+                [self.navigationController pushViewController:shakeVC animated:YES];
+            }else{
+                [[UserInfo shareManager] login];
+            }
+            
         }
             break;
         case 1:
@@ -104,7 +130,7 @@
             NSArray * array = [NSArray arrayWithObjects:@"取消",@"确定",@"测试", nil];
             UIView * test = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 200)];
             test.backgroundColor = [UIColor grayColor];
-            JXAlertView * alert = [[JXAlertView alloc]initWithTitle:nil customView:test delegate:self buttonTitles:array];
+            JXAlertView * alert = [[JXAlertView alloc]initWithTitle:nil customView:test target:self buttonTitles:array];
             alert.delegate = self;
             [alert show];
         }
@@ -112,7 +138,7 @@
         case 3:
         {
             NSArray * array = [NSArray arrayWithObjects:@"取消",@"确定",@"测试", nil];
-            JXAlertView * alert = [[JXAlertView alloc]initWithTitle:@"标题" message:@"手术方式的立方时空的房间数量的" delegate:self buttonTitles:array];
+            JXAlertView * alert = [[JXAlertView alloc]initWithTitle:@"标题" message:@"手术方式的立方时空的房间数量的" target:self buttonTitles:array];
             alert.delegate = self;
             [alert showInView:self.view animate:NO];
         }
@@ -133,6 +159,14 @@
         case 6:
         {
             DJXAnimationViewController * avc = [[DJXAnimationViewController alloc]init ];
+            [self.navigationController pushViewController:avc animated:YES];
+            
+            
+        }
+            break;
+        case 7:
+        {
+            DJXMyOrderListViewController * avc = [[DJXMyOrderListViewController alloc]init ];
             [self.navigationController pushViewController:avc animated:YES];
             
             

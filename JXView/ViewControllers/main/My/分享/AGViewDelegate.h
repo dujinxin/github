@@ -7,7 +7,10 @@
 //  Copyright (c) 2013年 ShareSDK.cn. All rights reserved.
 //
 #import <Foundation/Foundation.h>
-#import <ShareSDK/ISSShareViewDelegate.h>
+//#import <ShareSDK/ISSShareViewDelegate.h>
+#import <ShareSDK/ShareSDK.h>
+
+
 
 /**
  *	@brief	iPhone视图委托

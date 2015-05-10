@@ -202,7 +202,7 @@
             UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 280, 240)];
             imageView.image = [QRCodeGenerator qrImageForString:myString imageSize:imageView.bounds.size.width];
             NSArray * array = [[NSArray alloc]initWithObjects:@"保存", nil];
-            JXAlertView * alert = [[JXAlertView alloc]initWithTitle:@"我的二维码" customView:imageView delegate:self buttonTitles:array];
+            JXAlertView * alert = [[JXAlertView alloc]initWithTitle:@"我的二维码" customView:imageView target:self buttonTitles:array];
             [alert show];
         }
             break;

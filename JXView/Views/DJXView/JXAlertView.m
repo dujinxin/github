@@ -33,7 +33,7 @@
     return self;
 }
 //纯文本信息
-- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate buttonTitles:(NSArray *)buttonTitles{
+- (id)initWithTitle:(NSString *)title message:(NSString *)message target:(id)target buttonTitles:(NSArray *)buttonTitles{
     self = [super init];
     if (self) {
         CGFloat totalHeight = 0;
@@ -54,6 +54,14 @@
         if (message) {
             self.message = message;
             [self addSubview:self.textLabel];
+            
+            //分割线
+            UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, self.titleLabel.frame.size.height-1, self.frame.size.width, 1)];
+            line.backgroundColor = UIColorFromRGB(0xfc5860);
+            [self addSubview:line];
+        }
+        if (target) {
+            self.delegate = target;
         }
         totalHeight = _textLabel.frame.size.height + _top;
         //添加按钮---暂定一行显示2个，奇数个时最后一个放满一行。其他显示以后有空再加
@@ -67,7 +75,7 @@
             y = i /2;
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(10 + (width +space) * x, _textLabel.frame.size.height + _textLabel.frame.origin.y +10 + (10 +height) *y, width, height);
-            button.backgroundColor = [UIColor blueColor];
+            button.backgroundColor = UIColorFromRGB(0xfc5860);
             button.tag = kButtonTag + i;
             button.layer.cornerRadius = 5;
             [button setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
@@ -88,13 +96,13 @@
     return self;
 }
 //可以自定义内容
-- (id)initWithTitle:(NSString *)title customView:(UIView *)customView delegate:(id)delegate buttonTitles:(NSArray *)buttonTitles{
+- (id)initWithTitle:(NSString *)title customView:(UIView *)customView target:(id)target buttonTitles:(NSArray *)buttonTitles{
     self = [super init];
     if (self) {
         CGFloat totalHeight = 0;
-        self.frame = CGRectMake(0, 0, 260, 200);
+        self.frame = CGRectMake(0, 0, 280, 200);
         self.layer.cornerRadius = 8;
-        self.backgroundColor = [UIColor yellowColor];
+        self.backgroundColor = [UIColor whiteColor];
         
         //添加标题
         BOOL isHasTitle = NO;
@@ -102,13 +110,20 @@
             self.title = title;
             [self addSubview:self.titleLabel];
             isHasTitle = YES;
+            //分割线
+            UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, self.titleLabel.frame.size.height-1, self.frame.size.width, 1)];
+            line.backgroundColor = UIColorFromRGB(0xfc5860);
+            [self addSubview:line];
         }
         //自定义视图
         _top = isHasTitle ? self.titleLabel.frame.size.height : 10;
         CGRect frame = customView.frame;
-        customView.frame = CGRectMake(10, _top, self.frame.size.width -20, frame.size.height);
+        customView.frame = CGRectMake(20, _top, self.frame.size.width -20, frame.size.height);
 //        customView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         [self addSubview:customView];
+        if (target) {
+            self.delegate = target;
+        }
         totalHeight = frame.size.height + _top;
         //添加按钮---暂定一行显示2个，奇数个时最后一个放满一行。其他显示以后有空再加
         CGFloat space = 20;
@@ -120,8 +135,8 @@
             x = i %2;
             y = i /2;
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(10 + (width +space) * x, customView.frame.size.height + customView.frame.origin.y +10 + (10 +height) *y, width, height);
-            button.backgroundColor = [UIColor blueColor];
+            button.frame = CGRectMake(20 + (width +space) * x, customView.frame.size.height + customView.frame.origin.y +10 + (10 +height) *y, width, height);
+            button.backgroundColor = UIColorFromRGB(0xfc5860);
             button.tag = kButtonTag + i;
             button.layer.cornerRadius = 5;
             [button setTitle:[buttonTitles objectAtIndex:i] forState:UIControlStateNormal];
@@ -129,13 +144,17 @@
             [self addSubview:button];
             if (buttonTitles.count %2 != 0){
                 if (i == buttonTitles.count -1) {
-                    button.frame = CGRectMake(10, customView.frame.size.height + customView.frame.origin.y +10 + (10 +height) *y, (self.frame.size.width -10*2), height);
+                    button.frame = CGRectMake(20, customView.frame.size.height + customView.frame.origin.y +10 + (10 +height) *y, (self.frame.size.width -10*2), height);
                     totalHeight = button.frame.origin.y + button.frame.size.height;
+                }
+            }else{
+                if (i == buttonTitles.count -1) {
+                    totalHeight = button.frame.origin.y + button.frame.size.height ;
                 }
             }
             
         }
-        self.frame = CGRectMake(0, 0, 260, totalHeight +10);
+        self.frame = CGRectMake(0, 0, 280, totalHeight +10);
         self.center = [UIApplication sharedApplication].keyWindow.center;
     }
     return self;
@@ -226,9 +245,9 @@
 }
 -(UIView *)customView{
     if (!_customView) {
-        
+        //....
     }
-    return _customView;
+    return nil;
 }
 - (NSString *)title{
     return _title;

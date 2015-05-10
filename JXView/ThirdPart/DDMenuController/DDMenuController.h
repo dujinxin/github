@@ -25,6 +25,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JXCartView.h"
+
 
 typedef enum {
     DDMenuPanDirectionLeft = 0,
@@ -38,7 +40,7 @@ typedef enum {
 } DDMenuPanCompletion;
 
 @protocol DDMenuControllerDelegate;
-@interface DDMenuController : UIViewController <UIGestureRecognizerDelegate>{
+@interface DDMenuController : UIViewController <UIGestureRecognizerDelegate,JXCartViewDelegate>{
     
     id _tap;
     id _pan;

@@ -6,8 +6,23 @@
 //  Copyright (c) 2014年 e-future. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "DJXBasicViewController.h"
 
-@interface DJXShakeViewController : UIViewController
+typedef void(^shakeCallback)(id obj);
+
+typedef enum {
+    kCouponAward = 1,
+    kIntergralAward,
+    kGoodsAward,
+    kNoneAward,
+    kIntergralExchange,
+    kNoneTimes,
+    kNoneInfo,
+}kAwardType;
+
+@interface DJXShakeViewController : DJXBasicViewController<UIAlertViewDelegate,UIActionSheetDelegate>
+
+@property (nonatomic, strong) shakeCallback systemAudioCallback;
+@property (nonatomic, copy) shakeCallback shareBlock;
 
 @end

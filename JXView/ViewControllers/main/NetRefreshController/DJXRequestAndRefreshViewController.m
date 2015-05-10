@@ -9,6 +9,8 @@
 #import "DJXRequestAndRefreshViewController.h"
 #import "DJXGetRequestViewController.h"
 #import "DJXPostRequestViewController.h"
+#import "DJXCachePostViewController.h"
+
 #import "DJXASIRefreshViewController.h"
 #import "DJXAFNRefreshViewController.h"
 #import "DJXAFNRefreshTestViewController.h"
@@ -40,7 +42,7 @@
     self.navigationItem.rightBarButtonItems =  [self getNavigationItems:self selector:@selector(count) title:@"点击右边" style:kDoubleLineWords isLeft:NO];
     [self setTitleViewWithTitle:@"促销"];
     
-    _dataArray = [[NSMutableArray alloc]initWithObjects:@"DJXGetRequest",@"DJXPostRequest", nil];
+    _dataArray = [[NSMutableArray alloc]initWithObjects:@"DJXGetRequest",@"DJXPostRequest",@"DJXPostCache", nil];
     // Do any additional setup after loading the view.
     UITableView * _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
@@ -78,6 +80,11 @@
             break;
         case 1:{
             DJXPostRequestViewController * rlvc = [[DJXPostRequestViewController alloc]init ];
+            [self.navigationController pushViewController:rlvc animated:YES];
+        }
+            break;
+        case 2:{
+            DJXCachePostViewController * rlvc = [[DJXCachePostViewController alloc]init ];
             [self.navigationController pushViewController:rlvc animated:YES];
         }
             break;

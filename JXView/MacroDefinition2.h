@@ -36,4 +36,6 @@
 
 #define kTestUrl            @"http://iappfree.candou.com:8080/free/applications/limited?currency=rmb&page=1"
 
+#define kCacheFolderPath          [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"LazyRequestCache"]
+
 #endif

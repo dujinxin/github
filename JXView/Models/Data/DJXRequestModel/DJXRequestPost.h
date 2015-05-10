@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 e-future. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "DJXRequest.h"
 
 @interface DJXRequestPost : NSObject

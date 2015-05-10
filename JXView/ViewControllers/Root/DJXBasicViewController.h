@@ -29,6 +29,11 @@ typedef enum {
 - (void)setTitleViewWithTitle:(NSString *)title;
 - (void)setTitleView:(UIView *)titleView;
 
+/*
+ *custom NavigationBar
+ */
+-(UIView *)setNavigationBar:(NSString *)title backgroundColor:(UIColor *)backgroundColor leftItem:(UIView *)leftItem rightItem:(UIView *)rightItem delegete:(id)delegate;
+
 - (UIBarButtonItem *)getNavigationItem:(id)delegate selector:(SEL)selector title:(NSString *)title style:(kNavigationItemStyle)style isLeft:(BOOL)isLeft;
 - (UIBarButtonItem *)getNavigationItem:(id)delegate selector:(SEL)selector image:(UIImage *)image style:(kNavigationItemStyle)style isLeft:(BOOL)isLeft;
 

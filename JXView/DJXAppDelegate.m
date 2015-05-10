@@ -25,6 +25,8 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 
+#import "JXCartView.h"
+
 
 @implementation DJXAppDelegate
 
@@ -36,6 +38,12 @@
     [_mytabBarController hidesTabBar:hidden animated:YES];
 }
 
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [WXApi handleOpenURL:url delegate:self];
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -92,12 +100,20 @@
     //想摇就写在这～～～
     application.applicationSupportsShakeToEdit=YES;
     
-    //分享
+    //shareSDK,分享,微信，新浪
     [ShareSDK registerApp:@"7b13dc65eca"];
     // 导入微信需要的外部库类型，如果不需要微信分享可以不调用此方法
     [ShareSDK connectWeChatWithAppId:@"wxbceed00462510262"
                            wechatCls:[WXApi class]];
     [ShareSDK connectSinaWeiboWithAppKey:@"520063555" appSecret:@"334067194b7b54899444832d7bc75373" redirectUri:@"https://api.weibo.com/oauth2/default.html" weiboSDKCls:[WeiboSDK class]];
+    
+    //官方，微信，新浪
+    
+    //购物车
+    JXCartView * cart = [[JXCartView alloc]initWithFrame:CGRectMake(135, 235, 50, 50)];
+    cart.delegate = _menuController;
+    [self.window.rootViewController.view addSubview:cart];
+    
     [self.window makeKeyAndVisible];
     return YES;
     
@@ -181,4 +197,25 @@
     NSArray *icons = @[homeIconDic,shoppingIconDic,shakeIconDic,likeIconDic,myIconDic];
     return icons;
 }
+//选中标签栏上的按钮的方法
+- (BOOL)tabBarController:(LeveyTabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    int index = [tabBarController.viewControllers indexOfObject:viewController];
+    //选中购物车
+    if (index == 4)
+    {
+        DJXCardViewController * cartViewCon = [[DJXCardViewController alloc] init];
+        __block DJXAppDelegate *weakSelf = self;
+//            cartViewCon.callBack = ^(){
+//                [weakSelf.mytabBarController setSelectedIndex:weakSelf.selectTab];
+//            };
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:cartViewCon];
+        [_mytabBarController presentViewController:nav animated:YES completion:^{
+            
+        }];
+//        [_mytabBarController presentModalViewController:nav animated:YES];
+    }
+    return YES;
+}
+
 @end

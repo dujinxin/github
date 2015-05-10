@@ -25,6 +25,8 @@
 //
 
 #import "DDMenuController.h"
+#import "DJXAnimationViewController.h"
+#import "DJXCardViewController.h"
 
 #define kMenuFullWidth 320.0f
 #define kMenuDisplayedWidth 280.0f
@@ -746,4 +748,13 @@
     
 }
 
+#pragma mark - JXCartViewDelegate
+-(void)jxCartView:(JXCartView *)cartView reserved:(id)reserverd{
+    NSLog(@"全局");
+    DJXCardViewController * avc = [[DJXCardViewController alloc]init ];
+    UINavigationController * nvc = [[UINavigationController alloc]initWithRootViewController:avc];
+    [self presentViewController:nvc animated:YES completion:^{
+        
+    }];
+}
 @end

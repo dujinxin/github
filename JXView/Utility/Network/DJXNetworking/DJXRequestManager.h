@@ -23,7 +23,10 @@ typedef enum {
 }DJXRequestSerializerType;
 
 typedef enum {
-    kApiLimitFreeTag = 12,
+    kApiLimitFreeTag = 1,
+    kApiShakeInfoTag,
+    kApiShakeIntergralTag,
+    kApiUserLoginTag,
 }DJXApiTag;
 
 typedef enum {

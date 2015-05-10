@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DJXRequestManager.h"
+
 #import "DJXRequest.h"
 
 @interface DJXRequestGet : NSObject

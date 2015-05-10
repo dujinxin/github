@@ -21,8 +21,8 @@
 #define kGoodsList           @"v2/goods/list"                  // 商品列表
 
 
-#define kUseTargetAction  1
-#define kUseDelegate      0
+#define kUseTargetAction  0
+#define kUseDelegate      1
 #define kUseBlock         0
 @implementation DJXPostRequestViewController
 
@@ -130,10 +130,12 @@
     if (cell == nil) {
         cell = [[DJXAPPTableViewCell alloc ]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    DJXRequestPost *model = [self.dataArray objectAtIndex:indexPath.row];
-    
-    [cell.image setImageWithURL:[NSURL URLWithString:model.goods_image]];
-    cell.name.text = model.goods_name;
+//    DJXRequestPost *model = [self.dataArray objectAtIndex:indexPath.row];
+    NSDictionary * dict = [self.dataArray objectAtIndex:indexPath.row];
+    [cell.image setImageWithURL:[NSURL URLWithString:[dict objectForKey:@"goods_image"]]];
+    cell.name.text = [dict objectForKey:@"goods_name"];
+//    [cell.image setImageWithURL:[NSURL URLWithString:model.goods_image]];
+//    cell.name.text = model.goods_name;
 //    cell.detail.text = [NSString stringWithFormat:@"分享:%@次 收藏:%@次 下载:%@次",model.price,model.,model.downloads];
     return cell;
 }
@@ -260,21 +262,34 @@
         self.dataArray = (NSMutableArray *)good.goodsArray;
         
     }
+    
     [self.tableView reloadData];
     [self createFooterView];
 }
 #pragma mark - delegateMethod
 -(void)responseSuccess:(id)arrData tag:(DJXApiTag)tag{
     if (tag == kApiLimitFreeTag) {
+//        if (self.requestType == request_type_loadMoreData) {
+//            [self.dataArray addObjectsFromArray:(NSMutableArray *)arrData];
+//            
+//        }else if (self.requestType == request_type_refreshData){
+//            [self.dataArray removeAllObjects];
+//            self.dataArray = (NSMutableArray *)arrData;
+//            
+//        }else{
+//            self.dataArray = (NSMutableArray *)arrData;
+//            
+//        }
+        NSMutableArray * good = (NSMutableArray *)arrData;
         if (self.requestType == request_type_loadMoreData) {
-            [self.dataArray addObjectsFromArray:(NSMutableArray *)arrData];
+            [self.dataArray addObjectsFromArray:good];
             
         }else if (self.requestType == request_type_refreshData){
             [self.dataArray removeAllObjects];
-            self.dataArray = (NSMutableArray *)arrData;
+            self.dataArray = (NSMutableArray *)good;
             
         }else{
-            self.dataArray = (NSMutableArray *)arrData;
+            self.dataArray = (NSMutableArray *)good;
             
         }
         [self.tableView reloadData];

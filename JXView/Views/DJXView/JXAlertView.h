@@ -47,8 +47,8 @@ typedef enum{
 @property (nonatomic, copy) NSString * message;
 
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate buttonTitles:(NSArray *)buttonTitles;
-- (id)initWithTitle:(NSString *)title customView:(UIView *)customView delegate:(id)delegate buttonTitles:(NSArray *)buttonTitles;
+- (id)initWithTitle:(NSString *)title message:(NSString *)message target:(id)target buttonTitles:(NSArray *)buttonTitles;
+- (id)initWithTitle:(NSString *)title customView:(UIView *)customView target:(id)target buttonTitles:(NSArray *)buttonTitles;
 - (void)show;
 - (void)showInView:(UIView *)view animate:(BOOL)animated;
 - (void)dismiss;

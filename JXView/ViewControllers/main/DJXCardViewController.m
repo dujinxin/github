@@ -26,7 +26,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xfc88fc)];
+    self.title = @"购物车";
+//    self.navigationItem.leftBarButtonItems = [self getNavigationItems:self selector:@selector(count) image:[UIImage imageNamed: @"二维码"] style:kSingleImage isLeft:YES];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)] ;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,6 +41,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dismiss:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
 /*
 #pragma mark - Navigation
 

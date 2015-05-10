@@ -11,8 +11,12 @@
 
 #import "MacroDefinition.h"
 #import "MacroDefinition2.h"
+#import "UserInfo.h"
+#import "UIView+Method.h"
+#import "UITool.h"
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
+#import "MBProgressHUD.h"
 #import "JSONKit.h"
 #import "DJXAppDelegate.h"
 #import "DJXBasicViewController.h"
