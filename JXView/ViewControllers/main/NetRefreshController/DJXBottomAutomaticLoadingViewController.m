@@ -12,7 +12,7 @@
 
 @interface DJXBottomAutomaticLoadingViewController ()
 {
-    AppModelRequest2 * entity;
+    AFNRequestModel * entity;
 }
 @end
 
@@ -26,7 +26,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        entity = [[AppModelRequest2 alloc]init ];
+        entity = [[AFNRequestModel alloc]init ];
     }
     return self;
 }

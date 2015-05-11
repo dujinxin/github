@@ -8,8 +8,6 @@
 
 #import "DJXAFNRequestObj.h"
 
-// 存放当前所有的BSI链接...
-NSMutableArray *allBsiConnections;
 
 @implementation DJXAFNRequestObj
 @synthesize tag = _tag;
@@ -25,27 +23,6 @@ NSMutableArray *allBsiConnections;
     }
     return self;
 }
-+ (void) initialize {
-    // 只是调用一次 BSIHttpRequest第一次实例化就会调用 z
-    allBsiConnections = [[NSMutableArray alloc] init];
-}
-//- (id) initWithURL:(id)s {
-//    self = [super init];
-//    if (self) {
-//        if ([s isKindOfClass:[NSString class]]) {
-//            _url = [NSURL URLWithString:s];
-//        } else if ([s isKindOfClass:[NSURL class]]) {
-//            _url = (NSURL *)s;
-//        } else
-//            return nil;
-//        paramDict = [[NSMutableDictionary alloc] init];
-//        
-//    }
-//    return self;
-//}
-//+ (id) requestWithURL:(id)s {
-//    return [[[self class] alloc] initWithURL:s];
-//}
 - (instancetype)initWithDelegate:(id)vc nApiTag:(NSInteger)tag{
     return [self initWithTarget:vc action:nil nApiTag:tag];
 }

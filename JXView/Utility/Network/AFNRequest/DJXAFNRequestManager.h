@@ -38,13 +38,17 @@ typedef enum {
 
 @optional
 
--(void)requestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
--(void)requestCancel:(int)tag;
--(void)responseSuccess:(NSMutableArray *)arrData tag:(int)tag;
--(void)responseSuccessObj:(id)responseObj tag:(int)tag;
--(void)responseSuccess:(id)request;
--(void)requestSuccess:(id)request;
--(void)requestFailed:(DJXAFNRequestObj *)request;
+-(void)afnResponseSuccess:(NSMutableArray *)arrayObj tag:(int)tag;
+-(void)afnResponseSuccessObj:(id)responseObj tag:(int)tag;
+
+-(void)afnRequestFailedWithMessage:(NSString*)errMsg;
+-(void)afnRequestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
+-(void)afnRequestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg withObj:(id)obj;
+
+-(void)afnRequestSuccess:(id)request;
+-(void)afnRequestFailed:(DJXAFNRequestObj *)request;
+-(void)afnRequestCancel:(int)tag;
+
 -(void)setProgress:(float)newProgress;
 -(void)clearRequest;
 
@@ -62,12 +66,9 @@ typedef void (^requestCompletionBlock)(id object);
 - (void)addOperation:(DJXAFNRequestObj *)request;
 - (void)removeOperation:(AFHTTPRequestOperation *)operation;
 - (NSString *)requestHashKey:(AFHTTPRequestOperation *)operation;
-#pragma mark 取消某一请求   netObj:HttpRequestObj
 
-#pragma mark 取消界面发起的所有 request  ui:当前界面对象
 -(void)cancelRequestByViewController:(id)vc;
 
-#pragma mark 根据apiTag获取请求对象（HttpRequestObj）  nTag：apitag re:HttpRequestObj
 
 //-(id)getRequestManagerByApiTag:(EnumApiTag)nTag;
 

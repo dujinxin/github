@@ -281,9 +281,9 @@ NSMutableArray *allBsiConnections;
             //            [request toggleAccessoriesWillStopCallBack];
             [request requestCompleteFilter];
             if (request.delegate != nil && [self.delegate respondsToSelector:@selector(responseSuccess:)]) {
-                [self.delegate responseSuccess:request];
+                [self.delegate afnTestRequestSuccess:request];
             }
-            if (self.success) {
+            if (self.success){
                 self.success(request);
             }
 //            [request toggleAccessoriesDidStopCallBack];
@@ -293,7 +293,7 @@ NSMutableArray *allBsiConnections;
             //            [request toggleAccessoriesWillStopCallBack];
             [request requestFailedFilter];
             if (self.delegate != nil && [self.delegate respondsToSelector:@selector(requestFailed:)]) {
-                [self.delegate requestFailed:request];
+                [self.delegate afnTestRequestFailed:request];
             }
             if (self.failure) {
                 self.failure(request);

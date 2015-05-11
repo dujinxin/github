@@ -178,7 +178,7 @@ static DJXAFNRequestManager * requestManager = nil;
     [request requestFailedFilter];
     NSLog(@"Failure Request: %@", NSStringFromClass([request class]));
     if (request.delegate != nil && [request.delegate respondsToSelector:@selector(requestFailed:)]) {
-        [request.delegate requestFailed:request];
+        [request.delegate afnRequestFailed:request];
     }
     if (request.failure) {
         request.failure(request);
@@ -188,34 +188,69 @@ static DJXAFNRequestManager * requestManager = nil;
     [[DJXAFNRequestManager sharedInstance] removeOperation:operation];
     [request clearCompletionBlock];
 }
-- (void)handleRequestResult:(AFHTTPRequestOperation *)operation {
+- (void)handleRequestResult:(AFHTTPRequestOperation *)operation error:(NSError *)error {
     NSString *key = [self requestHashKey:operation];
     DJXAFNRequestObj *request = requestDictionary[key];
     NSLog(@"Finished Request: %@", NSStringFromClass([request class]));
     if (request) {
         BOOL succeed = [self checkResult:request];
-        if (succeed) {
-//            [request toggleAccessoriesWillStopCallBack];
+        if (succeed && !error) {
+            //    [request toggleAccessoriesWillStopCallBack];
+            /*
+             *可以返回到request类进行相关操作
+             */
             [request requestCompleteFilter];
-            if (request.delegate != nil && [request.delegate respondsToSelector:@selector(responseSuccess:)]) {
-                [request.delegate responseSuccess:request];
+            if (request && [request respondsToSelector:@selector(requestSuccess:)]) {
+                [request requestSuccess:operation.responseObject];
             }
-//            if (request.successCompletionBlock) {
-//                request.successCompletionBlock(request);
-//            }
-//            [request toggleAccessoriesDidStopCallBack];
+            if (request.success) {
+                request.success(request);
+            }
+            /*
+             *也可以直接返回到视图界面操作
+             *
+             if (request.delegate != nil && [request.delegate respondsToSelector:@selector(requestSuccess:)]) {
+             [request.delegate responseSuccess:operation.responseObject];
+             }
+             if (request.success) {
+             request.success(request);
+             }
+             */
+            //    [request toggleAccessoriesWillStopCallBack];
         } else {
-            NSLog(@"Request %@ failed, status code = %ld",
-                   NSStringFromClass([request class]), (long)request.responseStatusCode);
-//            [request toggleAccessoriesWillStopCallBack];
-            [request requestFailedFilter];
-            if (request.delegate != nil && [request.delegate respondsToSelector:@selector(requestFailed:)]) {
-                [request.delegate requestFailed:request];
+            if (!error) {
+                //。。。
+                BOOL isJsonData = [NSJSONSerialization isValidJSONObject:operation.responseObject];
+                if (!isJsonData) {
+                    NSLog(@"error with data is not json format")
+                }
+            }else{
+                //NSURLErrorDomain 点进去可以查看众多错误类型，
+                NSLog(@"%@ request failed, status code = %ld error:%@",
+                      NSStringFromClass([request class]), (long)request.responseStatusCode,error.localizedDescription);
             }
-//            if (request.failureCompletionBlock) {
-//                request.failureCompletionBlock(request);
-//            }
-//            [request toggleAccessoriesDidStopCallBack];
+            //   [request toggleAccessoriesWillStopCallBack];
+            /*
+             *可以返回到request类进行相关操作
+             */
+            [request requestFailedFilter];
+            if (request && [request respondsToSelector:@selector(requestFailed:)]) {
+                [request requestFailed:operation];
+            }
+            if (request.failure) {
+                request.failure(operation);
+            }
+            /*
+             *也可以直接返回到视图界面操作
+             *
+             if (request.delegate != nil && [request.delegate respondsToSelector:@selector(requestFailed:)]) {
+             [request.delegate responseFailed:request];
+             }
+             if (request.failure) {
+             request.failure(request);
+             }
+             */
+            //   [request toggleAccessoriesDidStopCallBack];
         }
     }
     [self removeOperation:operation];
@@ -243,7 +278,7 @@ static DJXAFNRequestManager * requestManager = nil;
 - (void)requestWithDelegate:(id)delegate action:(SEL)selector url:(NSString *)urlString pageCount:(NSInteger)page
 {
     DJXAFNRequestObj * request = NULL;
-    request = [[AppModelRequest2 alloc]initWithTarget:delegate action:selector nApiTag:kAFNApiLimitFreeTag];
+    request = [[AFNRequestModel alloc]initWithTarget:delegate action:selector nApiTag:kAFNApiLimitFreeTag];
     if(!request){
         DJXRelease(request);
         return;
@@ -261,7 +296,7 @@ static DJXAFNRequestManager * requestManager = nil;
 }
 - (void)requestWithDelegate:(id)delegate action:(SEL)selector url:(NSString *)urlString success:(requestCompletionBlock)success failure:(requestCompletionBlock)failure tag:(DJXAFNApiTag)tag{
     DJXAFNRequestObj * request = NULL;
-    request = [[AppModelRequest2 alloc]initWithTarget:delegate action:selector nApiTag:kAFNApiLimitFreeTag];
+    request = [[AFNRequestModel alloc]initWithTarget:delegate action:selector nApiTag:kAFNApiLimitFreeTag];
     request.success = success;
     request.failure = failure;
     if(!request){

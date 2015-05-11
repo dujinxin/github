@@ -242,7 +242,7 @@ static DJXRequestManager * requestManager = nil;
              *可以返回到request类进行相关操作
              */
             [request requestCompleteFilter];
-            if (request != nil && [request respondsToSelector:@selector(requestSuccess:)]) {
+            if (request && [request respondsToSelector:@selector(requestSuccess:)]) {
                 [request requestSuccess:operation.responseObject];
             }
             if (request.success) {
@@ -276,7 +276,7 @@ static DJXRequestManager * requestManager = nil;
              *可以返回到request类进行相关操作
              */
             [request requestFailedFilter];
-            if (request != nil && [request respondsToSelector:@selector(requestFailed:)]) {
+            if (request && [request respondsToSelector:@selector(requestFailed:)]) {
                 [request requestFailed:operation];
             }
             if (request.failure) {

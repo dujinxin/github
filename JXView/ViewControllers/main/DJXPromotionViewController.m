@@ -42,7 +42,7 @@
     self.navigationItem.rightBarButtonItems =  [self getNavigationItems:self selector:@selector(count) title:@"点击右边" style:kDoubleLineWords isLeft:NO];
     [self setTitleViewWithTitle:@"促销"];
     
-    _dataArray = [[NSMutableArray alloc]initWithObjects:@"DJXRequest",@"ASNRequest",@"AFIRequest",@"ASIRequestTest",@"AFNetworking请求封装",@"AFNetworking请求封装", nil];
+    _dataArray = [[NSMutableArray alloc]initWithObjects:@"DJXRequest",@"AFNRequest",@"ASIRequest",@"AFNRequestTest",@"AFNetworking请求封装",@"AFNetworking请求封装", nil];
     // Do any additional setup after loading the view.
     UITableView * _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;

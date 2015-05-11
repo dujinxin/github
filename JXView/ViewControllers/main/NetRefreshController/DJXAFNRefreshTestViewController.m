@@ -12,7 +12,7 @@
 
 @interface DJXAFNRefreshTestViewController ()
 {
-    AppModelRequest3 * entity;
+    AFNRequestTestModel * entity;
 }
 @end
 
@@ -31,7 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        entity = [[AppModelRequest3 alloc]init ];
+        entity = [[AFNRequestTestModel alloc]init ];
     }
     return self;
 }
@@ -211,7 +211,7 @@
     [self createFooterView];
 }
 #pragma mark - delegateMethod
--(void)responseSuccess:(id)arrData tag:(DJXAFNApiTag)tag{
+-(void)afnTestResponseSuccess:(id)arrData tag:(DJXAFNApiTag)tag{
     if (tag == kAFNApiLimitFreeTag) {
         if (self.requestType == request_type_loadMoreData) {
             [self.dataArray addObjectsFromArray:(NSMutableArray *)arrData];

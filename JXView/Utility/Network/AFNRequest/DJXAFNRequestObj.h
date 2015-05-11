@@ -33,13 +33,9 @@
 
 -(void)requestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
 -(void)requestCancel:(int)tag;
--(void)responseSuccess:(NSMutableArray *)arrData tag:(int)tag;
-//-(void)responseSuccessObj:(id)responseObj tag:(int)tag;
--(void)responseSuccess:(id)request;
--(BOOL)requestSuccess:(id)request;
--(BOOL)requestFailed:(DJXAFNRequestObj *)request;
+-(void)responseSuccess:(id)arrData tag:(int)tag;
 -(void)setProgress:(float)newProgress;
--(void)clearRequest;
+
 
 @end
 
@@ -75,17 +71,15 @@ typedef void (^requestCompletionBlock)(id object);
 @property (nonatomic, assign, readonly) NSInteger responseStatusCode;
 //成功的回调
 @property (nonatomic, copy)requestCompletionBlock success;
-//void (^successCompletionBlock)(DJXAFRequestObj *);
 //失败的回调
 @property (nonatomic, copy)requestCompletionBlock failure;
-//void (^failureCompletionBlock)(DJXAFRequestObj *);
 @property (nonatomic, strong) NSMutableArray *requestAccessories;
 
 
 //初始化
 - (instancetype)initWithDelegate:(id)vc nApiTag:(NSInteger)tag;
 - (instancetype)initWithTarget:(id)vc action:(SEL)selector nApiTag:(NSInteger)tag;
-- (instancetype)initWithSuccessBlock:(id)vc success:(requestCompletionBlock)success failure:(requestCompletionBlock)failure nApiTag:(NSInteger)tag;
+- (instancetype)initWithSuccessBlock:(requestCompletionBlock)success failure:(requestCompletionBlock)failure nApiTag:(NSInteger)tag;
 
 - (BOOL)requestSuccess:(id)responseData;
 - (BOOL)requestFailed:(id)responseData;
@@ -161,5 +155,4 @@ typedef void (^requestCompletionBlock)(id object);
 // 当需要断点续传时，获得下载进度的回调
 //- (AFDownloadProgressBlock)resumableDownloadProgressBlock;
 
-- (void)requestWithMentod:(DJXAFNRequestMethod)requestMethod WithUrl:(NSString *)url param:(NSDictionary *)param tag:(NSInteger)tag delegate:(id)target action:(SEL)action success:(requestCompletionBlock)success failure:(requestCompletionBlock)failure;
 @end

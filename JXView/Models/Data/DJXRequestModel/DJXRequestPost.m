@@ -203,7 +203,7 @@
         return NO;
     }
     NSLog(@"request fail");
-    [self.delegate requestFailed:self.tag withStatus:WEB_STATUS_0 withMessage:@"网络不给力，请稍后重试！"];
+    [self.delegate responseFailed:self.tag withStatus:WEB_STATUS_0 withMessage:@"网络不给力，请稍后重试！"];
     [[DJXRequestManager sharedInstance] cancelRequest:self];
     return YES;
 }
@@ -231,7 +231,7 @@
             [goodsList setGoodsListEntity:datas];
         }else if ([status isEqualToString:WEB_STATUS_3])
         {
-            [self.delegate requestFailed:self.tag withStatus:WEB_STATUS_3 withMessage:[dict objectForKey:@"message"]];
+            [self.delegate responseFailed:self.tag withStatus:WEB_STATUS_3 withMessage:[dict objectForKey:@"message"]];
             return YES;
         }else{
             NSLog(@"status 10000 %@",[dict objectForKey:@"message"]);

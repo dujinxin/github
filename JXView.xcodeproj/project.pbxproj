@@ -384,6 +384,8 @@
 		11BF47501A21EB7900783BFD /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		11C12C9C1AF223CD00D0F28F /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		11C12C9D1AF223CD00D0F28F /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		11C4E8921B00602D0000ACEF /* DJXApiTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJXApiTag.h; sourceTree = "<group>"; };
+		11C4E8931B0060CD0000ACEF /* DJXNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJXNetworking.h; sourceTree = "<group>"; };
 		11D38D261AC52577001B87F3 /* AFDownloadRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFDownloadRequestOperation.h; sourceTree = "<group>"; };
 		11D38D271AC52577001B87F3 /* AFDownloadRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFDownloadRequestOperation.m; sourceTree = "<group>"; };
 		11D38D281AC52577001B87F3 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -1111,6 +1113,15 @@
 			name = "我的订单";
 			sourceTree = "<group>";
 		};
+		11C4E8911B0057C10000ACEF /* AFNTestRequestTest */ = {
+			isa = PBXGroup;
+			children = (
+				11D38F6D1AC5381E001B87F3 /* DJXAFNRefreshTestViewController.h */,
+				11D38F6E1AC5381E001B87F3 /* DJXAFNRefreshTestViewController.m */,
+			);
+			name = AFNTestRequestTest;
+			sourceTree = "<group>";
+		};
 		11D38D241AC52577001B87F3 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -1632,11 +1643,10 @@
 		11D38F6C1AC5381E001B87F3 /* NetRefreshController */ = {
 			isa = PBXGroup;
 			children = (
+				11C4E8911B0057C10000ACEF /* AFNTestRequestTest */,
 				11D390A41ACCD3FD001B87F3 /* ASIRequestTest */,
 				11D38FFF1ACBA08A001B87F3 /* AFNRequestTest */,
 				11D38FFB1AC5489B001B87F3 /* DJXRequestTest */,
-				11D38F6D1AC5381E001B87F3 /* DJXAFNRefreshTestViewController.h */,
-				11D38F6E1AC5381E001B87F3 /* DJXAFNRefreshTestViewController.m */,
 				11D38F731AC5381E001B87F3 /* DJXBottomAutomaticLoadingViewController.h */,
 				11D38F741AC5381E001B87F3 /* DJXBottomAutomaticLoadingViewController.m */,
 				11D38F771AC5381E001B87F3 /* DJXRefreshAndLoadViewController.h */,
@@ -1792,6 +1802,8 @@
 				11D38FD11AC53AA3001B87F3 /* DJXRequest.m */,
 				11D38FD21AC53AA3001B87F3 /* DJXRequestManager.h */,
 				11D38FD31AC53AA3001B87F3 /* DJXRequestManager.m */,
+				11C4E8921B00602D0000ACEF /* DJXApiTag.h */,
+				11C4E8931B0060CD0000ACEF /* DJXNetworking.h */,
 			);
 			path = DJXNetworking;
 			sourceTree = "<group>";

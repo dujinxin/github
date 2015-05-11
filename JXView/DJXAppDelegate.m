@@ -92,7 +92,7 @@
     UINavigationController * nleft = [[UINavigationController alloc]initWithRootViewController:leftController];
     _menuController.leftViewController = nleft;
     
-    DJXRightViewController *rightController = [[DJXRightViewController alloc] init];
+//    DJXRightViewController *rightController = [[DJXRightViewController alloc] init];
 //    rootController.rightViewController = rightController;
     
     self.window.rootViewController = _menuController;
@@ -200,12 +200,12 @@
 //选中标签栏上的按钮的方法
 - (BOOL)tabBarController:(LeveyTabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
-    int index = [tabBarController.viewControllers indexOfObject:viewController];
+    NSUInteger index = [tabBarController.viewControllers indexOfObject:viewController];
     //选中购物车
     if (index == 4)
     {
         DJXCardViewController * cartViewCon = [[DJXCardViewController alloc] init];
-        __block DJXAppDelegate *weakSelf = self;
+//        __block DJXAppDelegate *weakSelf = self;
 //            cartViewCon.callBack = ^(){
 //                [weakSelf.mytabBarController setSelectedIndex:weakSelf.selectTab];
 //            };

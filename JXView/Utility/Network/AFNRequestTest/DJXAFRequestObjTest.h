@@ -54,12 +54,15 @@ typedef enum {
 
 @optional
 
--(void)requestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
--(void)requestCancel:(int)tag;
--(void)responseSuccess:(NSMutableArray *)arrData tag:(int)tag;
--(void)responseSuccessObj:(id)responseObj tag:(int)tag;
--(void)responseSuccess:(id)request;
--(void)requestFailed:(DJXAFRequestObjTest *)request;
+-(void)afnTestRequestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
+
+-(void)afnTestResponseSuccess:(NSMutableArray *)arrayObj tag:(int)tag;
+-(void)afnTestResponseSuccessObj:(id)responseObj tag:(int)tag;
+
+-(void)afnTestRequestSuccess:(id)request;
+-(void)afnTestRequestFailed:(DJXAFRequestObjTest *)request;
+-(void)afnTestRequestCancel:(int)tag;
+
 -(void)setProgress:(float)newProgress;
 -(void)clearRequest;
 

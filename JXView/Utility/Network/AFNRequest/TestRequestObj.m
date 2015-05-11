@@ -24,7 +24,7 @@ static TestRequestObj * _manager = nil;
 - (void)request:(id)target url:(NSString *)urlString pageCount:(NSInteger)page
 {
     DJXAFNRequestObj * request = NULL;
-    request = [[AppModelRequest2 alloc]initWithDelegate:target nApiTag:kAFNApiLimitFreeTag];
+    request = [[AFNRequestModel alloc]initWithDelegate:target nApiTag:kAFNApiLimitFreeTag];
     if(!request){
         DJXRelease(request);
         return;

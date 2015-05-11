@@ -204,7 +204,7 @@
         return NO;
     }
     NSLog(@"request fail");
-//    [self.delegate requestFailed:self.tag withStatus:WEB_STATUS_0 withMessage:@"网络不给力，请稍后重试！"];
+    [self.delegate responseFailed:self.tag withStatus:WEB_STATUS_0 withMessage:@"网络不给力，请稍后重试！"];
     [[DJXRequestManager sharedInstance] cancelRequest:self];
     return YES;
 }
@@ -233,7 +233,7 @@
             [goodsList setGoodsListEntity:datas];
         }else if ([status isEqualToString:WEB_STATUS_3])
         {
-            [self.delegate requestFailed:self.tag withStatus:WEB_STATUS_3 withMessage:[dict objectForKey:@"message"]];
+            [self.delegate responseFailed:self.tag withStatus:WEB_STATUS_3 withMessage:[dict objectForKey:@"message"]];
             return YES;
         }else{
             NSLog(@"status 10000 %@",[dict objectForKey:@"message"]);
@@ -261,29 +261,4 @@
     return YES;
 }
 
-- (void)globalPostWithUrl:(NSString *)url tag:(NSInteger)tag delegate:(id)target action:(SEL)action success:(requestCompletionBlock)success failure:(requestCompletionBlock)failure{
-    
-    //    self.delegate = target;
-    //    self.success = block;
-    //    [self.manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    //        //成功
-    //         [self responseSuccess:operation.responseData];
-    //
-    //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    //        //失败
-    //        NSLog(@"error:%@",error.localizedDescription);
-    //    }];
-}
-//- (void)requestWithMentod:(DJXRequestMethod)requestMethod WithUrl:(NSString *)url param:(NSDictionary *)param tag:(NSInteger)tag delegate:(id)target{
-//    self.delegate = target;
-//    self.success = block;
-//    [self.manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        //成功
-//        [self requestSuccess:operation.responseData];
-//
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        //失败
-//        NSLog(@"error:%@",error.localizedDescription);
-//    }];
-//}
 @end

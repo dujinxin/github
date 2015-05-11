@@ -767,22 +767,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JXView/Utility/Network/DJXNetworking/DJXBasicRequest.m"
-            timestampString = "450935958.193807"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "+requestWithClass:delegate:urlString:param:kApiTag:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "JXView/Utility/Network/DJXNetworking/DJXRequestManager.m"
             timestampString = "452008015.737705"
             startingColumnNumber = "9223372036854775807"
@@ -901,7 +885,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "174"
             endingLineNumber = "174"
-            landmarkName = "-responseSuccess:tag:"
+            landmarkName = "-afnResponseSuccess:tag:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1007,7 +991,7 @@
                   symbolName = "-[DDMenuController jxCartView:reserved:]"
                   moduleName = "JXView"
                   urlString = "file:///Users/lichentao/Desktop/github/JXView/ThirdPart/DDMenuController/DDMenuController.m"
-                  timestampString = "452756505.395158"
+                  timestampString = "453008665.71715"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "756"
@@ -1021,7 +1005,7 @@
                   symbolName = "__40-[DDMenuController jxCartView:reserved:]_block_invoke"
                   moduleName = "JXView"
                   urlString = "file:///Users/lichentao/Desktop/github/JXView/ThirdPart/DDMenuController/DDMenuController.m"
-                  timestampString = "452756505.395341"
+                  timestampString = "453008665.717431"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "758"
@@ -1508,6 +1492,86 @@
             startingLineNumber = "20"
             endingLineNumber = "20"
             landmarkName = "-initWithFrame:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JXView/Utility/Network/AFNRequest/TestRequestObj.m"
+            timestampString = "453007010.869856"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "-request:url:pageCount:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JXView/Models/Data/AFNRequestModel/appEntity.m"
+            timestampString = "453007082.113602"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "-requestSuccess:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JXView/Models/Data/AFNRequestModel/appEntity.m"
+            timestampString = "453008111.828687"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "-requestSuccess:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JXView/Models/Data/DJXRequestModel/DJXRequestGet.m"
+            timestampString = "453009782.742443"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "-requestSuccess:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JXView/ViewControllers/main/NetRefreshController/DJXGetRequestViewController.m"
+            timestampString = "453008559.727196"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "-responseSuccess:tag:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -164,13 +164,13 @@
     }
     
     // check cache time
-    int seconds = [self cacheFileDuration:path];
+    NSInteger seconds = [self cacheFileDuration:path];
     if (seconds < 0) {
         [super startAsynchronous];
         return;
     }
     if (seconds > [self cacheTimeInSeconds]) {
-        NSLog(@"Cache file overtime:%ld seconds",seconds - [self cacheTimeInSeconds]);
+        NSLog(@"Cache file overtime:%ld seconds",seconds - (long)[self cacheTimeInSeconds]);
         NSError * error = nil;
 //        [fileManager removeItemAtPath:path error:&error];
 //        [fileManager removeItemAtPath:pathVersion error:&error];

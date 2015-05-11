@@ -171,7 +171,7 @@
     [self createFooterView];
 }
 #pragma mark - delegateMethod
--(void)responseSuccess:(id)arrData tag:(DJXAFNApiTag)tag{
+-(void)afnResponseSuccess:(id)arrData tag:(DJXAFNApiTag)tag{
     if (tag == kAFNApiLimitFreeTag) {
         if (self.requestType == request_type_loadMoreData) {
             [self.dataArray addObjectsFromArray:(NSMutableArray *)arrData];

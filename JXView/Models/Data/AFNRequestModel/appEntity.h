@@ -51,14 +51,15 @@
 @end
 
 
-//typedef void (^callBackBlock)(id obj);
 //afn
-@interface AppModelRequest3 : DJXAFRequestObjTest
+@interface AFNRequestModel : DJXAFNRequestObj
+//@property (nonatomic, copy)callBackBlock successBlock;
+@end
+
+//afn
+@interface AFNRequestTestModel : DJXAFRequestObjTest
 //@property (nonatomic, copy)callBackBlock successBlock;
 @property (nonatomic,strong)NSMutableArray * objArray;
 @end
 
-//afn
-@interface AppModelRequest2 : DJXAFNRequestObj
-//@property (nonatomic, copy)callBackBlock successBlock;
-@end
+

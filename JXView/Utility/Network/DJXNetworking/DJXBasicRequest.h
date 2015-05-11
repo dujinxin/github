@@ -40,14 +40,12 @@ _Pragma("clang diagnostic pop") \
 
 @optional
 
--(void)requestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
--(void)requestCancel:(int)tag;
-//-(void)responseSuccess:(NSMutableArray *)arrData tag:(int)tag;
 -(void)responseSuccess:(id)responseObj tag:(int)tag;
--(void)responseSuccess:(id)request;
--(void)responseFailed:(id)request;
 -(void)responseFailed:(int)tag withMessage:(NSString*)errMsg;
 -(void)responseFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg;
+-(void)responseFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg withObj:(id)object;
+-(void)requestCancel:(int)tag;
+
 -(void)setProgress:(float)newProgress;
 
 -(void)clearRequest;
@@ -58,50 +56,59 @@ typedef void (^requestCompletionBlock)(id object);
 
 @interface DJXBasicRequest : NSObject<DJXRequestDelegate>
 
-@property (nonatomic, copy) NSString * className;
+
+@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
+
+/*
+ *请求信息
+ */
+
+@property (nonatomic,   copy) NSString             *   className;
 //Tag
-@property (nonatomic,assign) NSInteger tag;
+@property (nonatomic, assign) NSInteger                tag;
 //请求url
-@property (nonatomic, copy) NSString * baseUrl;
+@property (nonatomic,   copy) NSString             *   baseUrl;
 //请求url
-@property (nonatomic, copy) NSString * requestUrl;
+@property (nonatomic,   copy) NSString             *   requestUrl;
 //请求参数
-@property (nonatomic, strong) NSMutableDictionary *requestDictionary;
+@property (nonatomic, strong) NSMutableDictionary  *   requestDictionary;
 //需要登录时，用户的信息
-@property (nonatomic, strong) NSDictionary *userInfo;
+@property (nonatomic, strong) NSDictionary         *   userInfo;
 //请求类型
-@property (nonatomic, assign) DJXRequestMethod requestMethod;
+@property (nonatomic, assign) DJXRequestMethod         requestMethod;
 //请求的SerializerType
 @property (nonatomic, assign) DJXRequestSerializerType requestSerializerType;
 //请求队列
-@property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
+@property (nonatomic, strong) AFHTTPRequestOperation * requestOperation;
 //请求代理
-@property (nonatomic, assign) id<DJXRequestDelegate> delegate;
-@property (nonatomic, assign) SEL action;
-@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
+@property (nonatomic, assign) id<DJXRequestDelegate>   delegate;
+@property (nonatomic, assign) SEL                      action;
+
+
+
+/*
+ *返回信息
+ */
+
 //返回头信息
-@property (nonatomic, strong, readonly) NSDictionary *responseHeaders;
+@property (nonatomic, strong, readonly) NSDictionary * responseHeaders;
 //返回的数据
-@property (nonatomic, strong, readonly) NSString *responseString;
-@property (nonatomic, strong)           NSData * responseData;
-@property (nonatomic, strong, readonly) id responseJSONObject;
+@property (nonatomic, strong, readonly) NSString     * responseString;
+@property (nonatomic, strong)           NSData       * responseData;
+@property (nonatomic, strong, readonly) id             responseJSONObject;
 //返回状态码
-@property (nonatomic, assign, readonly) NSInteger responseStatusCode;
+@property (nonatomic, assign, readonly) NSInteger      responseStatusCode;
 //成功的回调
-@property (nonatomic, copy)requestCompletionBlock success;
-//void (^successCompletionBlock)(DJXAFRequestObj *);
+@property (nonatomic, copy)requestCompletionBlock      success;
 //失败的回调
-@property (nonatomic, copy)requestCompletionBlock failure;
-//void (^failureCompletionBlock)(DJXAFRequestObj *);
-@property (nonatomic, strong) NSMutableArray *requestAccessories;
+@property (nonatomic, copy)requestCompletionBlock      failure;
+@property (nonatomic, strong) NSMutableArray         * requestAccessories;
 
 + (NSString *)className;
 //初始化
-- (instancetype)initWithDelegate:(id)vc action:(SEL)selector nApiTag:(NSInteger)tag;
-- (instancetype)initWithDelegate:(id)vc success:(requestCompletionBlock)success failure:(requestCompletionBlock)failure nApiTag:(NSInteger)tag;
-+ (void)requestWithClass:(NSString *)className delegate:(id)target urlString:(NSString *)url kApiTag:(DJXApiTag)tag;
-+ (void)requestWithClass:(NSString *)className delegate:(id)target urlString:(NSString *)url param:(NSDictionary *)param kApiTag:(DJXApiTag)tag;
-- (void)requestWithDelegate:(id)target urlString:(NSString *)url kApiTag:(DJXApiTag)tag;
+- (instancetype)initWithDelegate:(id)vc nApiTag:(DJXApiTag)tag;
+- (instancetype)initWithDelegate:(id)vc action:(SEL)selector nApiTag:(DJXApiTag)tag;
+- (instancetype)initWithDelegate:(id)vc success:(requestCompletionBlock)success failure:(requestCompletionBlock)failure nApiTag:(DJXApiTag)tag;
 
 - (BOOL)requestSuccess:(id)responseData;
 - (BOOL)requestFailed:(id)responseData;

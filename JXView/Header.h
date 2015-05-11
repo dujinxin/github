@@ -14,6 +14,9 @@
 #import "UserInfo.h"
 #import "UIView+Method.h"
 #import "UITool.h"
+#import "DJXNetworking.h"
+
+
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
