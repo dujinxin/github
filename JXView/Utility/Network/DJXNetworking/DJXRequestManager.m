@@ -260,6 +260,10 @@ static DJXRequestManager * requestManager = nil;
              */
             //    [request toggleAccessoriesWillStopCallBack];
         } else {
+            //   [request toggleAccessoriesWillStopCallBack];
+            /*
+             *可以返回到request类进行相关操作
+             */
             if (!error) {
                 //。。。
                 BOOL isJsonData = [NSJSONSerialization isValidJSONObject:operation.responseObject];
@@ -267,17 +271,17 @@ static DJXRequestManager * requestManager = nil;
                     NSLog(@"error with data is not json format")
                 }
             }else{
-                //NSURLErrorDomain 点进去可以查看众多错误类型，
+                //NSURLErrorDomain 点进去可以查看众多错误类型，有机会在整理，划分
                 NSLog(@"%@ request failed, status code = %ld error:%@",
                       NSStringFromClass([request class]), (long)request.responseStatusCode,error.localizedDescription);
             }
-            //   [request toggleAccessoriesWillStopCallBack];
-            /*
-             *可以返回到request类进行相关操作
-             */
             [request requestFailedFilter];
             if (request && [request respondsToSelector:@selector(requestFailed:)]) {
-                [request requestFailed:operation];
+                if (operation.response && !error) {
+                    [request requestFailed:operation];
+                }else{
+                    [request requestFailed:error.localizedDescription];
+                }
             }
             if (request.failure) {
                 request.failure(operation);

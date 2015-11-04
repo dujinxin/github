@@ -126,7 +126,9 @@
     }
     return dataDic;
 }
-
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key{
+//    NSLog(@"undefinedKey:%@ value:%@",key,value);
+}
 @end
 
 @implementation GoodsListCacheEntity
@@ -138,6 +140,9 @@
         [good setGoodEntity:dic];
         [self.goodsArray addObject:good];
     }
+}
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key{
+//    NSLog(@"undefinedKey:%@ value:%@",key,value);
 }
 @end
 
@@ -204,7 +209,15 @@
         return NO;
     }
     NSLog(@"request fail");
-    [self.delegate responseFailed:self.tag withStatus:WEB_STATUS_0 withMessage:@"网络不给力，请稍后重试！"];
+    if ([responseData isKindOfClass:[NSString class]]) {
+        NSString * errorStr = (NSString *)responseData;
+        [self.delegate responseFailed:self.tag withStatus:WEB_STATUS_0 withMessage:errorStr];
+    }else{
+        //....
+        [self.delegate responseFailed:self.tag withStatus:WEB_STATUS_0 withMessage:responseData];
+    }
+    
+    
     [[DJXRequestManager sharedInstance] cancelRequest:self];
     return YES;
 }
@@ -218,6 +231,7 @@
     if ([result isKindOfClass:[NSDictionary class]]) {
         NSDictionary * dict = (NSDictionary *)result;
         NSMutableArray * datas = [dict objectForKey:@"data"];
+        NSMutableArray * dataArray = [NSMutableArray array];
         //        if([datas count] == 0){
         //            if ([dict valueForKey:@"total"]==0) {
         //                [self.delegate requestFailed:self.tag withStatus:@"999" withMessage:@"数据为空。"];
@@ -230,7 +244,12 @@
         GoodsListCacheEntity *goodsList = [[GoodsListCacheEntity alloc] init];
         if([status isEqualToString:WEB_STATUS_1] ){
             goodsList.total = [dict objectForKey:@"total"];
-            [goodsList setGoodsListEntity:datas];
+            for (NSDictionary * d in datas) {
+                DJXCachePost *good = [[DJXCachePost alloc] init];
+                [good setValuesForKeysWithDictionary:d];
+                [dataArray addObject:good];
+            }
+            //[goodsList setGoodsListEntity:datas];
         }else if ([status isEqualToString:WEB_STATUS_3])
         {
             [self.delegate responseFailed:self.tag withStatus:WEB_STATUS_3 withMessage:[dict objectForKey:@"message"]];
@@ -239,20 +258,20 @@
             NSLog(@"status 10000 %@",[dict objectForKey:@"message"]);
         }
         /* 将数据传给界面 */
-        //        //代理方法
-        //        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(responseSuccessObj:tag:)]) {
-        //            [self.delegate responseSuccessObj:goodsList tag:self.tag];
-        //        }
-        //        //block
-        //        if (self.success) {
-        //            self.success(goodsList);
-        //        }
-        //target-action
-        if ([self.delegate respondsToSelector:self.action] && self.action){
-            SuppressPerformSelectorLeakWarning(
-                [self.delegate performSelector:self.action withObject:goodsList];
-            );
+        //代理方法
+        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(responseSuccess:tag:)]) {
+            [self.delegate responseSuccess:dataArray tag:self.tag];
         }
+//        //block
+//        if (self.success) {
+//            self.success(goodsList);
+//        }
+//        //target-action
+//        if ([self.delegate respondsToSelector:self.action] && self.action){
+//            SuppressPerformSelectorLeakWarning(
+//                [self.delegate performSelector:self.action withObject:goodsList];
+//            );
+//        }
         
     }
     

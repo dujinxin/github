@@ -19,17 +19,16 @@
     self = [super initWithFrame:frame];
     if (self)
 	{
-		self.backgroundColor = [UIColor clearColor];
+		self.backgroundColor = [UIColor blueColor];
+        self.userInteractionEnabled = YES;
 		_backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
 //		[self addSubview:_backgroundView];
-		self.userInteractionEnabled = YES;
-        self.backgroundColor = [UIColor greenColor];
+		
 		self.buttons = [NSMutableArray arrayWithCapacity:[imageArray count]];
 		UIButton *btn;
-//		CGFloat width = 320.0f / [imageArray count];
-        CGFloat width = 64;
-            // 添加购物车数量图标
-
+		CGFloat width = 64;
+        CGFloat space = (kScreenWidth - imageArray.count *64)/ (imageArray.count +1);
+        // 添加购物车数量图标
 		for (int i = 0; i < [imageArray count]; i++)
 		{
 			btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -37,14 +36,14 @@
                 btn.showsTouchWhenHighlighted = YES;
             }
 			btn.tag = i;
-			btn.frame = CGRectMake(256, 0, 64, 63);
+			btn.frame = CGRectMake(space +(width +space) * i, 0, width, 49);
             [btn setBackgroundImage: [[imageArray objectAtIndex:i] objectForKey:@"Normal"] forState:UIControlStateNormal];
             [btn setBackgroundImage:[[imageArray objectAtIndex:i] objectForKey:@"Selected"] forState:UIControlStateSelected];
 
 			[btn addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-            if (i != 4) {
-                btn.frame = CGRectMake(width * i, 15, width, 48);
-            }
+//            if (i != 4) {
+//                btn.frame = CGRectMake(space +(width +space) * i, 0, width, 49);
+//            }
             NSString *strCartNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"cartNum"];
             if (i == 4) {
                 numButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -120,7 +119,7 @@
     [self.buttons removeObjectAtIndex:index];
    
     // Re-index the buttons
-     CGFloat width = 320.0f / [self.buttons count];
+     CGFloat width = kScreenWidth / [self.buttons count];
     for (UIButton *btn in self.buttons) 
     {
         if (btn.tag > index)
@@ -133,7 +132,7 @@
 - (void)insertTabWithImageDic:(NSDictionary *)dict atIndex:(NSUInteger)index
 {
     // Re-index the buttons
-    CGFloat width = 320.0f / ([self.buttons count] + 1);
+    CGFloat width = kScreenWidth / ([self.buttons count] + 1);
     for (UIButton *b in self.buttons) 
     {
         if (b.tag >= index)

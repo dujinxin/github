@@ -113,6 +113,16 @@
     return DJXAutorelease(superView);
 }
 
+/*
+ 快速创建基本视图控件
+ */
++ (void)showAlertView:(NSString *)message{
+    [UITool showAlertView:message target:nil];
+}
++ (void)showAlertView:(NSString *)message target:(id)target{
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:target cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alert show];
+}
 //循环创建--长度不定（label）
 #if 0
 - (void)addOldHistoryView:(NSArray *)textArray

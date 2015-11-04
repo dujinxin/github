@@ -16,6 +16,8 @@
 #import "UITool.h"
 #import "DJXNetworking.h"
 
+#import "MJRefresh.h"
+
 
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"

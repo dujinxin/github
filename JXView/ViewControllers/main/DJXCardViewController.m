@@ -42,9 +42,10 @@
 }
 
 - (void)dismiss:(id)sender{
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self dismissViewControllerAnimated:YES completion:^{}];
+    if (self.callBackBlock) {
+        self.callBackBlock();
+    }
 }
 /*
 #pragma mark - Navigation

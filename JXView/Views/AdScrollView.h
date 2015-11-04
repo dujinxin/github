@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, UIPageControlShowStyle)
-{
-    UIPageControlShowStyleNone,//default
-    UIPageControlShowStyleLeft,
-    UIPageControlShowStyleCenter,
-    UIPageControlShowStyleRight,
+typedef NS_ENUM(NSInteger, UIPageStyle) {
+    UIPageNoneStyle,            
+    UIPageControlPointStyle,
+    UIPageLabelNumberStyle,
 };
 
 typedef NS_ENUM(NSUInteger, AdTitleShowStyle)
@@ -24,12 +22,23 @@ typedef NS_ENUM(NSUInteger, AdTitleShowStyle)
     AdTitleShowStyleRight,
 };
 
+@class AdScrollView;
+@protocol AdScrollViewDelegate <NSObject>
+
+-(void)adScrollView:(AdScrollView *)adScrollView clickedViewForPage:(NSInteger)page;
+
+@end
+
 @interface AdScrollView : UIScrollView<UIScrollViewDelegate>
 
+@property (assign,nonatomic)id<AdScrollViewDelegate> adDelegate;
+
 @property (retain,nonatomic,readonly) UIPageControl * pageControl;
+@property (strong,nonatomic,readwrite)UILabel   * pageLabel;
+
 @property (retain,nonatomic,readwrite) NSArray * imageNameArray;
 @property (retain,nonatomic,readonly) NSArray * adTitleArray;
-@property (assign,nonatomic,readwrite) UIPageControlShowStyle  PageControlShowStyle;
+@property (assign,nonatomic,readwrite) UIPageStyle  pageStyle;
 @property (assign,nonatomic,readonly) AdTitleShowStyle  adTitleStyle;
 
 - (void)setAdTitleArray:(NSArray *)adTitleArray withShowStyle:(AdTitleShowStyle)adTitleStyle;

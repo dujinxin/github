@@ -57,10 +57,6 @@
     return contentView;
 }
 
-
-
-
-
 -(void)reloadData{
     _size = self.frame.size;
     self.containerView.frame = CGRectMake(0, 0, _size.width, _size.height);
@@ -69,8 +65,6 @@
     NSArray * array = [NSArray arrayWithObjects:@(0), nil];
     [self.containerView reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationLeft];
 }
-
-
 
 #pragma mark - UITableViewDelegate
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -282,6 +282,20 @@
 //        //        [[iToast makeText:@"联网连接超时，请重试！"]show];
 //        return TRUE;
 //    }
+    BOOL isFailed = [super requestFailed:responseData];
+    if (isFailed) {
+        if ([self isUseFormat]) {
+            if ([responseData isKindOfClass:[NSString class]]) {
+                NSString * errorStr = (NSString *)responseData;
+                [self responseResult:nil message:errorStr isSuccess:NO];
+            }else{
+                [self responseResult:responseData message:nil isSuccess:NO];
+            }
+            return !isFailed;
+        }else{
+            return isFailed;
+        }
+    }
     return YES;
 }
 

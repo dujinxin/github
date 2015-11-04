@@ -99,7 +99,9 @@
     return nil;
 }
 
-
+- (void)horizontalView:(UIView *)contentView contentForPageAtIndex:(NSUInteger)index{
+    
+}
 
 
 

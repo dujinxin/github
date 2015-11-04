@@ -140,7 +140,7 @@
             NSArray * array = [NSArray arrayWithObjects:@"取消",@"确定",@"测试", nil];
             JXAlertView * alert = [[JXAlertView alloc]initWithTitle:@"标题" message:@"手术方式的立方时空的房间数量的" target:self buttonTitles:array];
             alert.delegate = self;
-            [alert showInView:self.view animate:NO];
+            [alert showInView:self.view animate:YES];
         }
             break;
         case 4:

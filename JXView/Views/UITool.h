@@ -30,4 +30,11 @@
 //循环创建button
 //+(UIView *)createButtonsWithClass:(Class *)className count:(NSInteger)count row:(NSInteger)row calumn:(NSInteger)calumn tag:(NSInteger)tag titleArray:(NSArray *)titleArray imageArray:(NSArray *)imageArray;
 +(UIView *)createButtonsWithClassName:(NSString *)className count:(NSInteger)count row:(NSInteger)row calumn:(NSInteger)calumn tag:(NSInteger)tag titleArray:(NSArray *)titleArray imageArray:(NSArray *)imageArray delegate:(id)delegate selector:(SEL)selector;
+
+
+/*
+ *弹窗提示
+ */
++ (void)showAlertView:(NSString *)message;
++ (void)showAlertView:(NSString *)message target:(id)target;
 @end

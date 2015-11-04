@@ -21,8 +21,8 @@
 #define kGoodsList           @"v2/goods/list"                  // 商品列表
 
 
-#define kUseTargetAction  1
-#define kUseDelegate      0
+#define kUseTargetAction  0
+#define kUseDelegate      1
 #define kUseBlock         0
 
 @implementation DJXCachePostViewController
@@ -69,7 +69,7 @@
         //        [GoodListObj requestWithClass:@"GoodListObj" delegate:self urlString:[NSString stringWithFormat:@"%@%@?session_id=&region_id=1001",kBaseUrl,kGoodsList] param:param kApiTag:kApiLimitFreeTag];
         
         //        [GoodListObj requestWithClass:@"GoodListObj" delegate:self urlString:nil param:param kApiTag:kApiLimitFreeTag];
-        [[DJXRequestManager sharedInstance] requestWithDelegate:self className:@"GoodListObj" param:param kApiTag:kApiLimitFreeTag];
+        [[DJXRequestManager sharedInstance] requestWithDelegate:self className:@"GoodListCacheObj" param:param kApiTag:kApiLimitFreeTag];
     }
     //block
     if (kUseBlock) {
@@ -230,7 +230,7 @@
     [self createFooterView];
     
 }
--(void)requestFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg{
+-(void)responseFailed:(int)tag withStatus:(NSString*)status withMessage:(NSString*)errMsg{
     NSLog(@"status:%@ error:%@",status,errMsg);
 }
 #pragma mark - actionMethod
@@ -251,17 +251,17 @@
     [self createFooterView];
 }
 #pragma mark - delegateMethod
--(void)responseSuccess:(id)arrData tag:(DJXApiTag)tag{
+-(void)responseSuccess:(id)responseObj tag:(DJXApiTag)tag{
     if (tag == kApiLimitFreeTag) {
         if (self.requestType == request_type_loadMoreData) {
-            [self.dataArray addObjectsFromArray:(NSMutableArray *)arrData];
+            [self.dataArray addObjectsFromArray:(NSMutableArray *)responseObj];
             
         }else if (self.requestType == request_type_refreshData){
             [self.dataArray removeAllObjects];
-            self.dataArray = (NSMutableArray *)arrData;
+            self.dataArray = (NSMutableArray *)responseObj;
             
         }else{
-            self.dataArray = (NSMutableArray *)arrData;
+            self.dataArray = (NSMutableArray *)responseObj;
             
         }
         [self.tableView reloadData];

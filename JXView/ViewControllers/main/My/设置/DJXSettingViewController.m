@@ -47,7 +47,9 @@
     cell.textLabel.text = [self.dataArray objectAtIndex:indexPath.row];
     if (indexPath.row == 1) {
         UILabel * sizeLabel = (UILabel *)[cell.contentView viewWithTag:10];
-        NSString * sizeString = [[DJXFileManager defaultManager] sizeOfFolderWithPath:kCacheFolderPath];
+
+        [[DJXFileManager defaultManager] setFolderPath:kCacheFolderPath];
+        NSString * sizeString = [[DJXFileManager defaultManager] sizeOfFolder];
 //        NSString * sizeString = nil;
 //        if (size < 1) {
 //            size /= 1024.0;

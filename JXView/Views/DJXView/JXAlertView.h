@@ -9,6 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "JXLabel.h"
 
+#ifndef JX_INSTANCETYPE
+#if __has_feature(objc_instancetype)
+#define JX_INSTANCETYPE instancetype
+#else
+#define JX_INSTANCETYPE id
+#endif
+#endif
+
+typedef NS_ENUM(NSInteger, JXAlertViewStyle) {
+    kAlertViewMessage      =    1,
+    kAlertViewCustomView         ,
+};
 
 typedef enum{
     kBgViewTag = 9900,
@@ -43,12 +55,16 @@ typedef enum{
     
 }
 @property (nonatomic, assign)id<JXAlertViewDelegate> delegate;
-@property (nonatomic, copy) NSString * title;
-@property (nonatomic, copy) NSString * message;
+@property (nonatomic, copy) NSString  * title;
+@property (nonatomic, copy) NSString  * message;
 
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message target:(id)target buttonTitles:(NSArray *)buttonTitles;
-- (id)initWithTitle:(NSString *)title customView:(UIView *)customView target:(id)target buttonTitles:(NSArray *)buttonTitles;
+@property (nonatomic, assign)BOOL       showSeparateLine;
+@property (nonatomic, strong)UIView   * separateLine;
+
+
+- (JX_INSTANCETYPE)initWithTitle:(NSString *)title message:(NSString *)message target:(id)target buttonTitles:(NSArray *)buttonTitles;
+- (JX_INSTANCETYPE)initWithTitle:(NSString *)title customView:(UIView *)customView target:(id)target buttonTitles:(NSArray *)buttonTitles;
 - (void)show;
 - (void)showInView:(UIView *)view animate:(BOOL)animated;
 - (void)dismiss;

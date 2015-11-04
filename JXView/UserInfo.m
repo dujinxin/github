@@ -23,10 +23,15 @@ static UserInfo * manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[UserInfo alloc]init ];
-        [manager initializeFile];
-        [manager initializeData];
     });
     return manager;
+}
+-(instancetype)init{
+    if (self = [super init]) {
+        [manager initializeFile];
+        [manager initializeData];
+    }
+    return self;
 }
 -(void)initializeFile{
     NSString* documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
@@ -80,14 +85,14 @@ static UserInfo * manager = nil;
         NSError * error = nil;
         [[NSFileManager defaultManager] removeItemAtPath:key error:&error];
         if (error) {
-            NSLog(@"clear userInfo error :%@",error);
+            NSLog(@"clear userInfo error :%@",error.localizedDescription);
         }else{
             NSLog(@"clear userInfo success!");
         }
     }
 }
 -(NSDictionary *)getUserInfo:(NSString *)key{
-    NSDictionary * userInfo = nil;
+    NSDictionary * userInfo;
     if ([[NSFileManager defaultManager] fileExistsAtPath:_userInfo_path]) {
         userInfo = [NSDictionary dictionaryWithContentsOfFile:_userInfo_path];
     }else{

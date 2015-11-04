@@ -8,7 +8,9 @@
 
 #import "LeveyTabBarController.h"
 #import "LeveyTabBar.h"
-#define LEVEYTABBARHEIGHT 63.0f
+#define LEVEYTABBARHEIGHT 49.0f
+
+
 
 @implementation UIViewController (LeveyTabBarControllerSupport)
 
@@ -61,12 +63,11 @@
 		_containerView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
         _containerView.backgroundColor = [UIColor clearColor];
         
-		_transitionView = [[UIView alloc] initWithFrame:CGRectMake(0, originY, 320.0f, _containerView.frame.size.height)];
+		_transitionView = [[UIView alloc] initWithFrame:CGRectMake(0, originY, kScreenWidth, _containerView.frame.size.height)];
 		_transitionView.backgroundColor =  [UIColor whiteColor];
 
 		
-		_tabBar = [[LeveyTabBar alloc] initWithFrame:CGRectMake(0, originY + _containerView.frame.size.height - 43, 320.0f, LEVEYTABBARHEIGHT) buttonImages:arr];
-        _tabBar.backgroundColor = [UIColor clearColor];
+		_tabBar = [[LeveyTabBar alloc] initWithFrame:CGRectMake(0, originY + _containerView.frame.size.height - 43, kScreenWidth, LEVEYTABBARHEIGHT) buttonImages:arr];
 		_tabBar.delegate = self;
 	}
 	return self;
@@ -124,7 +125,7 @@
 	}
 	else
 	{
-		_transitionView.frame = CGRectMake(0, 0, 320.0f, _containerView.frame.size.height - kTabBarHeight);
+		_transitionView.frame = CGRectMake(0, 0, kScreenWidth, _containerView.frame.size.height - kTabBarHeight);
 	}
 }
 

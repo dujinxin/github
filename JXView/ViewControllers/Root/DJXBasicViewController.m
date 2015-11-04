@@ -7,6 +7,7 @@
 //
 
 #import "DJXBasicViewController.h"
+#import "UITool.h"
 
 @interface DJXBasicViewController ()
 
@@ -32,15 +33,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 /*
@@ -50,12 +42,12 @@
     UIView * navigationBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     navigationBar.backgroundColor = backgroundColor;
     
-    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 200, 44)];
+    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.text = title;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [navigationBar addSubview:titleLabel];
-    //titleLabel.center = CGPointMake(SCREEN_WIDTH /2, titleLabel.center.y);
+    titleLabel.center = CGPointMake(SCREEN_WIDTH /2, 20 + titleLabel.center.y);
     
     leftItem.frame = CGRectMake(10, 20, 44, 44);
     rightItem.frame = CGRectMake(SCREEN_WIDTH - 50, 20, 44, 44);
@@ -219,7 +211,13 @@
         buttonArray= [NSMutableArray arrayWithObjects:negativeSpacer,barButtonItem, nil];
     }
     
-
     return buttonArray;
+}
+
+- (void)showMessage:(NSString *)message{
+    [self showMessage:message target:nil];
+}
+- (void)showMessage:(NSString *)message target:(id)target{
+    [UITool showAlertView:message target:target];
 }
 @end

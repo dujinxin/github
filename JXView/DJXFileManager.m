@@ -8,6 +8,16 @@
 
 #import "DJXFileManager.h"
 
+
+
+@interface DJXFileManager ()
+
+-(void)cleanCacheWithPath:(NSString *)path;
+@end
+
+NSString * const DJXFileErrorMessage = @"you need set FilePath first!";
+NSString * const DJXFolderErrorMessage = @"you need set FolderPath first!";
+
 @implementation DJXFileManager
 
 static DJXFileManager * _manager = nil;
@@ -17,6 +27,13 @@ static DJXFileManager * _manager = nil;
         _manager = [[DJXFileManager alloc]init ];
     });
     return _manager;
+}
+
+-(void)setFilePath:(NSString *)filePath{
+    _filePath = filePath;
+}
+-(void)setFolderPath:(NSString *)folderPath{
+    _folderPath = folderPath;
 }
 //判断指定路径的文件是否超出了规定的时间
 //NSTimeInterval 时间差变量，单位是秒
@@ -44,35 +61,37 @@ static DJXFileManager * _manager = nil;
 #pragma mark - sizeOfCache
 
 -(CGFloat)sizeOfFile{
-    return [self sizeOfFileWithPath:nil];
+    NSAssert(!_filePath, DJXFileErrorMessage);
+    return [self sizeOfFileWithPath:_filePath];
 }
 //单个文件的大小
 -(CGFloat)sizeOfFileWithPath:(NSString *)path{
-    if (path) {
-        self.filePath = path;
+    if (!path) {
+        return 0;
     }
-    NSFileManager* manager = [NSFileManager defaultManager];
-    if ([manager fileExistsAtPath:self.filePath]){
-        return [[manager attributesOfItemAtPath:self.filePath error:nil] fileSize];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:path]){
+        return [[manager attributesOfItemAtPath:path error:nil] fileSize];
     }
     return 0;
 }
 -(NSString *)sizeOfFolder{
-    return [self sizeOfFolderWithPath:nil];
+    NSAssert(_folderPath, DJXFolderErrorMessage);
+    return [self sizeOfFolderWithPath:_folderPath];
 }
 //遍历文件夹获得文件夹大小，返回多少M
 -(NSString *)sizeOfFolderWithPath:(NSString *)path{
-    if (path) {
-        self.folderPath = path;
+    if (!path) {
+        return 0;
     }
     NSFileManager* manager = [NSFileManager defaultManager];
-    if (![manager fileExistsAtPath:self.folderPath])
+    if (![manager fileExistsAtPath:path])
         return 0;
-    NSEnumerator *childFilesEnumerator = [[manager subpathsAtPath:self.folderPath] objectEnumerator];
+    NSEnumerator *childFilesEnumerator = [[manager subpathsAtPath:path] objectEnumerator];
     NSString* fileName;
     long long folderSize = 0;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
-        NSString* fileAbsolutePath = [self.folderPath stringByAppendingPathComponent:fileName];
+        NSString* fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
         folderSize += [self sizeOfFileWithPath:fileAbsolutePath];
     }
 //    CGFloat newSize = folderSize /1024.0;
@@ -86,23 +105,22 @@ static DJXFileManager * _manager = nil;
 
 #pragma mark - cleanCache
 -(void)cleanCacheFolder{
-    [self cleanCacheFolderWithPath:nil];
+    NSAssert(_folderPath, DJXFolderErrorMessage);
+    [self cleanCacheFolderWithPath:_folderPath];
 }
 -(void)cleanCacheFile{
-    [self cleanCacheFileWithPath:nil];
+    NSAssert(_filePath, DJXFileErrorMessage);
+    [self cleanCacheFileWithPath:_filePath];
 }
 -(void)cleanCacheFolderWithPath:(NSString *)path{
-    if (path) {
-        self.folderPath = path;
-    }
-    NSError * error = nil;
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
-    }
+    [self cleanCacheWithPath:path];
 }
 -(void)cleanCacheFileWithPath:(NSString *)path{
-    if (path) {
-        self.filePath = path;
+    [self cleanCacheWithPath:path];
+}
+-(void)cleanCacheWithPath:(NSString *)path{
+    if (!path) {
+        return;
     }
     NSError * error = nil;
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {

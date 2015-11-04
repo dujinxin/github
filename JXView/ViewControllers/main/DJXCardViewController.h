@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DJXCardViewController : UIViewController
+@interface DJXCardViewController : DJXBasicViewController
 
 @end

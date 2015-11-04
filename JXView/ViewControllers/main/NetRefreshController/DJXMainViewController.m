@@ -11,6 +11,10 @@
 #import "AdScrollView.h"
 #import "AdDataModel.h"
 
+#import "DJXLocationViewController.h"
+
+#import <objc/runtime.h>
+
 @interface DJXMainViewController ()
 
 @end
@@ -56,9 +60,14 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 #pragma clang diagnostic pop
     }
-    
+
     
     [self initWithView];
+    
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[DJXAppDelegate appDelegate].mytabBarController hidesTabBar:NO animated:animated];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -69,7 +78,6 @@
 #pragma mark - InitWithView
 - (void)initWithView{
     [self initWithScrollView];
-
 }
 - (void)initWithScrollView{
     AdScrollView * scrollView = [[AdScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150)];
@@ -77,17 +85,19 @@
     //如果滚动视图的父视图由导航控制器控制,必须要设置该属性(ps,猜测这是为了正常显示,导航控制器内部设置了UIEdgeInsetsMake(64, 0, 0, 0))
     //    scrollView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0);
     
-    NSLog(@"%@",dataModel.adTitleArray);
     scrollView.imageNameArray = dataModel.imageNameArray;
-    scrollView.PageControlShowStyle = UIPageControlShowStyleRight;
+    scrollView.pageStyle = UIPageLabelNumberStyle;
     scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
     
     [scrollView setAdTitleArray:dataModel.adTitleArray withShowStyle:AdTitleShowStyleLeft];
     
     scrollView.pageControl.currentPageIndicatorTintColor = [UIColor purpleColor];
     [self.view addSubview:scrollView];
+//    scrollView.pageStyle = UIPageLabelNumberStyle;
 }
 - (void)count{
-    
+    DJXLocationViewController * lvc = [[DJXLocationViewController alloc ]init ];
+    lvc.isFromMainViewController = YES;
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 @end
