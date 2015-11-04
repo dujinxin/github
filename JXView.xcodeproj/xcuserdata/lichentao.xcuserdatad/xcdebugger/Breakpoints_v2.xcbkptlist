@@ -975,54 +975,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JXView/ThirdPart/DDMenuController/DDMenuController.m"
-            timestampString = "450670785.977056"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "756"
-            endingLineNumber = "756"
-            landmarkName = "-jxCartView:reserved:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[DDMenuController jxCartView:reserved:]"
-                  moduleName = "JXView"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichentao/Desktop/github/JXView/ThirdPart/DDMenuController/DDMenuController.m"
-                  timestampString = "466144028.56214"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "756"
-                  endingLineNumber = "756"
-                  offsetFromSymbolStart = "296">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__40-[DDMenuController jxCartView:reserved:]_block_invoke"
-                  moduleName = "JXView"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lichentao/Desktop/github/JXView/ThirdPart/DDMenuController/DDMenuController.m"
-                  timestampString = "466144028.562334"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "758"
-                  endingLineNumber = "758"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "JXView/Utility/Network/DJXNetworking/DJXRequest.m"
             timestampString = "450947741.624688"
             startingColumnNumber = "9223372036854775807"
